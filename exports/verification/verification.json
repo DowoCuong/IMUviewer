@@ -1,0 +1,133 @@
+{
+  "utc": "2026-10-18T13:20:42.496966+00:00",
+  "results": [
+    {
+      "name": "desktop_pytest",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "stdout": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 0.78s\n",
+      "stderr": ""
+    },
+    {
+      "name": "desktop_unittest",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 89 tests in 0.586s\n\nOK\n"
+    },
+    {
+      "name": "performance",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "tools/benchmark_engine.py"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "stdout": "{\n  \"unit\": \"ms per synchronized frame\",\n  \"results\": [\n    {\n      \"history_rows\": 1000,\n      \"median_ms\": 0.05335,\n      \"p95_ms\": 0.0632\n    },\n    {\n      \"history_rows\": 10000,\n      \"median_ms\": 0.06025,\n      \"p95_ms\": 0.0723\n    },\n    {\n      \"history_rows\": 100000,\n      \"median_ms\": 0.0546,\n      \"p95_ms\": 0.0675\n    },\n    {\n      \"history_rows\": 500000,\n      \"median_ms\": 0.05655,\n      \"p95_ms\": 0.1072\n    }\n  ]\n}\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "firmware_unittest",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".",
+        "-p",
+        "test_imu*.py",
+        "-q"
+      ],
+      "cwd": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "----------------------------------------------------------------------\nRan 77 tests in 22.625s\n\nOK\n"
+    },
+    {
+      "name": "desktop_webchannel_smoke",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "tools/smoke_desktop.py"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "stdout": "{\"errors\": [], \"count\": \"101\", \"knee\": \"30.00\", \"calibration\": \"\\u0110ang \\u0111o \\u00b7 sai l\\u1ec7ch gi\\u1edd \\u01b0\\u1edbc t\\u00ednh \\u00b130 \\u00b5s \\u00b7 ch\\u01b0a x\\u00e1c nh\\u1eadn tr\\u1ec5 b\\u00ean trong BNO055\", \"sceneError\": \"Error: Error creating WebGL context.\\n    at new WebGLRenderer (file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28143:13)\\n    at initializeScene (file:///D:/imu-web-min-main/imu_desktop/ui/app.js:535:14)\\n    at file:///D:/imu-web-min-main/imu_desktop/ui/app.js:831:3\", \"overflow\": false, \"measured_samples\": 101}\n",
+      "stderr": "WARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Failed to create a WebGL2 context.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Failed to create a WebGL2 context.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28590 THREE.WebGLRenderer: A WebGL context could not be created. Reason:  Could not create a WebGL context, VENDOR = 0xffff, DEVICE = 0xffff, Sandboxed = no, Optimus = no, AMD switchable = no, Reset notification strategy = 0x0000, ErrorMessage = OffscreenContext Creation failed, GpuChannelHost creation failed.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28171 THREE.WebGLRenderer: Error creating WebGL context.\nWARNING:root:Interface file:///D:/imu-web-min-main/imu_desktop/ui/app.js:835 Error: Error creating WebGL context.\n"
+    },
+    {
+      "name": "encoder_bench_webchannel_smoke",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "tools/smoke_bench.py"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "stdout": "{\"hardware_opened\": false, \"paired_rows\": 301, \"metrics\": {\"count\": 301, \"rmse_deg\": 2.3826072603754165e-15, \"bias_deg\": 6.550401264340307e-32, \"error_sd_deg\": 2.382607260375416e-15, \"mae_deg\": 1.0873546433870305e-15, \"max_abs_deg\": 7.105427357601002e-15}, \"motor_commands\": [\"M 90.000000 0.000000\", \"S\", \"S\"], \"viewports\": [{\"overflow\": false, \"badge\": \"\\u0110\\u00e3 k\\u1ebft n\\u1ed1i\", \"rmse\": \"0.000\\u00b0\", \"samples\": \"301 m\\u1eabu \\u0111\\u1ed1i chi\\u1ebfu\", \"chartWidth\": 1054, \"chartHeight\": 284}, {\"overflow\": false, \"badge\": \"\\u0110\\u00e3 k\\u1ebft n\\u1ed1i\", \"rmse\": \"0.000\\u00b0\", \"samples\": \"301 m\\u1eabu \\u0111\\u1ed1i chi\\u1ebfu\", \"chartWidth\": 701, \"chartHeight\": 140}]}\n",
+      "stderr": ""
+    },
+    {
+      "name": "javascript_module_syntax",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "name": "encoder_bench_javascript_syntax",
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "all_passed": true,
+  "accuracy_scope": "Synthetic/software checks only; no new encoder or in-vivo data acquired",
+  "final_bench_smoke": {
+    "hardware_opened": false,
+    "paired_rows": 301,
+    "metrics": {
+      "count": 301,
+      "rmse_deg": 2.3826072603754165e-15,
+      "bias_deg": 6.550401264340307e-32,
+      "error_sd_deg": 2.382607260375416e-15,
+      "mae_deg": 1.0873546433870305e-15,
+      "max_abs_deg": 7.105427357601002e-15
+    },
+    "motor_commands": [
+      "M 90.000000 0.000000",
+      "S",
+      "S"
+    ],
+    "viewports": [
+      {
+        "overflow": false,
+        "badge": "Đã kết nối",
+        "rmse": "0.000°",
+        "samples": "301 mẫu đối chiếu",
+        "chartWidth": 1054,
+        "chartHeight": 284
+      },
+      {
+        "overflow": false,
+        "badge": "Đã kết nối",
+        "rmse": "0.000°",
+        "samples": "301 mẫu đối chiếu",
+        "chartWidth": 701,
+        "chartHeight": 140
+      }
+    ],
+    "clear_resets_values_and_rows": true
+  }
+}

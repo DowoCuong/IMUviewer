@@ -1,0 +1,25 @@
+{
+  "unit": "ms per synchronized frame",
+  "results": [
+    {
+      "history_rows": 1000,
+      "median_ms": 0.05335,
+      "p95_ms": 0.0632
+    },
+    {
+      "history_rows": 10000,
+      "median_ms": 0.06025,
+      "p95_ms": 0.0723
+    },
+    {
+      "history_rows": 100000,
+      "median_ms": 0.0546,
+      "p95_ms": 0.0675
+    },
+    {
+      "history_rows": 500000,
+      "median_ms": 0.05655,
+      "p95_ms": 0.1072
+    }
+  ]
+}

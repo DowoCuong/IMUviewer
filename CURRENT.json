@@ -1,0 +1,7 @@
+﻿{
+    "portable":  "dist/IMUJointViewer/IMUJointViewer.exe",
+    "previous_portable":  "D:\\imu-web-min-main\\backups\\portable-20261116-143542-783",
+    "launcher":  "RUN_IMU.cmd",
+    "version":  "2.4.1",
+    "release_manifest":  "dist/IMUJointViewer/release-manifest.json"
+}

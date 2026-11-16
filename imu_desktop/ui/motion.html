@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Đo góc chi trên</title>
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="motion.css">
+  <script>window.__startupErrors=[];window.addEventListener('error',e=>window.__startupErrors.push(e.message));window.addEventListener('unhandledrejection',e=>window.__startupErrors.push(String(e.reason)));</script>
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}</script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 23.5 13.2 9l4.1 9.1L21.8 6 27 23.5"/><circle cx="8" cy="23.5" r="2.3"/><circle cx="13.2" cy="9" r="2.3"/><circle cx="17.3" cy="18.1" r="2.3"/><circle cx="21.8" cy="6" r="2.3"/><circle cx="27" cy="23.5" r="2.3"/></svg></div>
+      <div><h1 id="motionHeading">Đo góc chi trên</h1><p>Theo dõi vai, khuỷu và cổ tay</p></div>
+    </div>
+    <div class="header-meta">
+      <a class="text-button" href="index.html">Đo góc chi dưới</a><a class="text-button" href="bench.html">Kiểm tra với encoder</a>
+      <span class="privacy-note">Dữ liệu lưu trên máy</span>
+      <div class="komlab-credit" aria-label="Komlab Rehab, bởi DowoCuong"><img src="assets/komlab-logo.png" alt="Biểu trưng Komlab Rehab"><span><strong>Komlab Rehab</strong><small>bởi DowoCuong</small></span></div>
+      <div id="motionBadge" class="connection-badge offline"><span class="connection-dot"></span><span id="motionConnection">Chưa kết nối</span></div>
+    </div>
+  </header>
+  <main class="workspace motion-workspace">
+    <aside class="panel controls-panel">
+      <div class="panel-heading"><div><span class="eyebrow">Thiết bị</span><h2>Kết nối thiết bị</h2></div><button id="refresh" class="icon-button" title="Làm mới cổng" aria-label="Làm mới cổng"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6.1 8.5A7 7 0 0 1 18.7 7M17.9 15.5A7 7 0 0 1 5.3 17"/></svg></button></div>
+      <label for="model" class="field-label">Mô hình đo</label><select id="model" class="field-control"><option value="upper_limb_v1">Chi trên · một bên tay</option><option value="lower_limb_v1">Chi dưới · phân tích cặp khớp</option></select>
+      <label for="side" class="field-label">Bên tay</label><select id="side" class="field-control"><option value="right">Phải</option><option value="left">Trái</option></select>
+      <p id="mapping" class="calibration-hint"></p>
+      <label for="port" class="field-label">Cổng bộ thu IMU</label><select id="port" class="field-control"><option value="">Chọn cổng hub</option></select>
+      <p class="field-hint">IMU1 nhị phân · bốn cảm biến · 115200</p>
+      <button id="connect" class="primary-button"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></svg>Bắt đầu đo</button>
+      <button id="stop" class="secondary-button full-width" disabled>Dừng đo</button>
+      <div class="divider"></div>
+      <div class="panel-heading compact"><div><span class="eyebrow">Chuẩn bị đo</span><h2>Hiệu chuẩn trục khớp</h2></div></div>
+      <p id="pose" class="calibration-hint"></p><p id="state" class="calibration-state">Chưa hiệu chuẩn</p>
+      <button id="neutral" class="secondary-button full-width">1. Lấy mốc · giữ yên 3 giây</button>
+      <label for="maneuver" class="field-label">Chuyển động cần ghi</label><select id="maneuver" class="field-control"></select>
+      <p id="instruction" class="calibration-hint"></p>
+      <button id="fit" class="secondary-button full-width">2. Ghi trục</button><button id="validate" class="secondary-button full-width">3. Ghi kiểm tra độc lập</button>
+      <div class="button-row"><button id="load_profile" class="secondary-button">Mở hiệu chuẩn</button><button id="save_profile" class="secondary-button">Lưu hiệu chuẩn</button></div>
+      <details class="motion-details"><summary>Hướng dẫn hiệu chuẩn</summary><p class="calibration-hint">Bắt đầu theo chiều dương được hướng dẫn, lặp lại khoảng 5 giây rồi hoàn tất. Kiểm tra bằng lần chuyển động mới. Sau khi gắn lại phải hiệu chuẩn lại. Ngưỡng kiểm tra trục 5° là tiêu chí kỹ thuật, không chứng nhận sai số góc &lt;1°.</p></details>
+      <div class="divider"></div>
+      <div class="panel-heading compact"><div><span class="eyebrow">Hiển thị</span><h2>Mô hình 3D</h2></div></div>
+      <div class="model-switch" role="radiogroup" aria-label="Góc nhìn mô hình 3D">
+        <button class="model-option active" data-motion-view="focus" role="radio" aria-checked="true"><span class="model-preview lower-preview"></span><span><strong id="focusLabel">Thân trên</strong><small>Tập trung vào vùng đang đo</small></span></button>
+        <button class="model-option" data-motion-view="full" role="radio" aria-checked="false"><span class="model-preview full-preview"></span><span><strong>Toàn thân</strong><small>Mô hình đầy đủ</small></span></button>
+      </div>
+      <div class="divider"></div><button id="export" class="export-button">Xuất CSV và session</button><button id="replay" class="secondary-button full-width">Mở lại session</button>
+      <p class="calibration-hint">Dừng trước khi xuất hoặc mở lại session. Giá trị trống nghĩa là không có góc hợp lệ.</p>
+      <details class="motion-details"><summary>Chất lượng dữ liệu</summary><p id="health">Chưa nhận dữ liệu</p><p class="calibration-hint">Vai là cánh tay so với thân. Mô hình 3D chỉ minh họa; các giá trị đo lấy từ engine quaternion. Góc chưa đủ hiệu chuẩn hoặc gần kỳ dị được đánh dấu riêng. Mốc tư thế chưa xác nhận mốc xương cá nhân; RMSE &lt;1° trên người chưa được chứng minh.</p></details>
+    </aside>
+    <section class="panel viewer-panel">
+      <div class="viewer-toolbar"><div><span class="eyebrow">Tư thế hiện tại</span><h2 id="motionModelTitle">Mô hình thân trên</h2></div><div class="viewer-actions"><span id="motionModelStatus" class="model-status">Đang tải mô hình…</span><button id="motionResetPose" class="icon-button dark" title="Đưa góc nhìn về ban đầu" aria-label="Đưa góc nhìn về ban đầu"><svg viewBox="0 0 24 24"><path d="M4 4v6h6M20 20v-6h-6M5.6 15.5A7 7 0 0 0 18 17.8M18.4 8.5A7 7 0 0 0 6 6.2"/></svg></button></div></div>
+      <div id="motionMount" class="three-mount" aria-label="Mô hình minh họa chi trên 3D"></div>
+      <div class="viewer-legend"><span><i class="legend-dot hip"></i><b id="legendShoulder">Vai</b></span><span><i class="legend-dot knee"></i><b id="legendElbow">Khuỷu</b></span><span><i class="legend-dot ankle"></i><b id="legendWrist">Cổ tay</b></span><span class="viewer-hint">Mô hình minh họa · kéo để xoay, cuộn để thu/phóng</span></div>
+    </section>
+    <aside class="metrics-column">
+      <section class="panel metrics-panel"><div class="panel-heading compact"><div><span class="eyebrow">Kết quả đo</span><h2>Góc khớp</h2></div><span id="motionRate" class="sample-rate">— Hz/node</span></div><div id="cards"></div></section>
+      <section class="panel session-panel"><span class="eyebrow">Phiên đo hiện tại</span><div class="session-stat"><span>Hàng khớp đã ghi</span><strong id="motionCount">0</strong></div><div class="session-stat"><span>Thời gian</span><strong id="motionDuration">0,0 s</strong></div><div class="session-stat"><span>Trạng thái</span><strong id="motionState">Sẵn sàng</strong></div><p id="message" class="calibration-hint" role="status"></p></section>
+    </aside>
+    <section class="panel chart-panel">
+      <div class="chart-heading"><div><span class="eyebrow">Dữ liệu theo thời gian</span><h2>Góc khớp theo thời gian</h2></div><select id="curve" class="field-control" aria-label="Góc xem trên biểu đồ"></select><button id="clearMotionChart" class="text-button">Xóa biểu đồ</button></div>
+      <div class="chart-wrap"><canvas id="chart" width="1000" height="280"></canvas><div id="motionChartEmpty" class="chart-empty">Bắt đầu đo để xem biểu đồ góc khớp.</div></div>
+    </section>
+  </main>
+</div>
+<script src="motion.js"></script><script type="module" src="motion-view.js"></script>
+</body></html>

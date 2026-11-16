@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-16T12:36:36.885736+00:00",
+  "launched": "D:\\imu-web-min-main\\dist\\IMUJointViewer\\IMUJointViewer.exe",
+  "alive_after_6_seconds": true,
+  "terminated_by_test": true,
+  "log": "D:\\imu-web-min-main\\exports\\verification\\packaged-smoke.log",
+  "files": [
+    {
+      "path": "D:\\imu-web-min-main\\dist\\IMUJointViewer\\IMUJointViewer.exe",
+      "bytes": 1357839,
+      "sha256": "b579237a004f4803ec5f970d7c4f200799d9884ac3628c127092d495a9fbd59b"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\dist-installer\\IMUJointViewer-Setup.exe",
+      "bytes": 119182603,
+      "sha256": "f18ea2287efbe1b478b065b90a2deb8a19ddd668039863b43678d0ac5dc51f7f"
+    }
+  ]
+}

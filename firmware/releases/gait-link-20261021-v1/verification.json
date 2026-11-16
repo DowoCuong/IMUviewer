@@ -1,0 +1,155 @@
+{
+  "client_date": "2026-10-21",
+  "created_utc": "2026-10-21T12:04:47.681798+00:00",
+  "all_passed": true,
+  "hardware_opened": false,
+  "flashed": false,
+  "physical_rmse_measured": false,
+  "firmware_tests": {
+    "command": [
+      "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      ".",
+      "-p",
+      "test_imu*.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "tests": 88,
+    "seconds": 40.088
+  },
+  "app_tests": {
+    "tests": 104,
+    "seconds": 5.123,
+    "exit_code": 0
+  },
+  "reference_tests": [
+    {
+      "name": "nvs-v1",
+      "tests": 16,
+      "seconds": 23.759,
+      "exit_code": 0
+    },
+    {
+      "name": "wrist-v8",
+      "tests": 22,
+      "seconds": 31.811,
+      "exit_code": 0
+    }
+  ],
+  "reference": "C:\\Users\\doman\\OneDrive\\Documents\\ChatGPT\\max30102 2\\firmware\\releases\\esb8-20261012-v1",
+  "reference_unchanged": true,
+  "backup": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb\\backups\\before_link_upgrade_20261021_184004.zip",
+  "backup_sha256": "cd7159e26db96e1aa57de12d0caa32d52a6a13e64c6d10d24c439adc764c178d",
+  "source_sha256": "b04307ca772db42c161e26789ccedf4ab1920826df300dd8ce0f64e464da70a8",
+  "builds": [
+    {
+      "variant": "accuracy-gait100",
+      "role": "prx",
+      "memory_bytes": {},
+      "nodes": 4,
+      "radio_hz": 100,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "accuracy-gait100-n1",
+      "role": "ptx",
+      "memory_bytes": {},
+      "nodes": 4,
+      "radio_hz": 100,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "accuracy-gait100-n2",
+      "role": "ptx",
+      "memory_bytes": {},
+      "nodes": 4,
+      "radio_hz": 100,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "accuracy-gait100-n3",
+      "role": "ptx",
+      "memory_bytes": {},
+      "nodes": 4,
+      "radio_hz": 100,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "accuracy-gait100-n4",
+      "role": "ptx",
+      "memory_bytes": {},
+      "nodes": 4,
+      "radio_hz": 100,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "link-check400",
+      "role": "prx",
+      "memory_bytes": {},
+      "nodes": 1,
+      "radio_hz": 400,
+      "rf_channel": 80,
+      "warnings": []
+    },
+    {
+      "variant": "link-check400",
+      "role": "ptx",
+      "memory_bytes": {},
+      "nodes": 1,
+      "radio_hz": 400,
+      "rf_channel": 80,
+      "warnings": []
+    }
+  ],
+  "stress": {
+    "virtual_frames": 1000,
+    "transmission_attempts": 10000,
+    "forced_completion_timeouts": 144,
+    "clock_and_tx_sequence_wrap": true,
+    "next_beacon_window_preserved": true,
+    "scope": "Actual C scheduler with fake ESB/clock; not a physical throughput measurement"
+  },
+  "modified_sources": [
+    "README.md",
+    "build-imu.ps1",
+    "prx/CMakeLists.txt",
+    "prx/Kconfig",
+    "prx/gait100.conf",
+    "prx/prj.conf",
+    "ptx/Kconfig",
+    "ptx/gait100-n1.conf",
+    "ptx/gait100-n2.conf",
+    "ptx/gait100-n3.conf",
+    "ptx/gait100-n4.conf",
+    "ptx/prj.conf",
+    "src/imu_main.c",
+    "src/imu_radio.c",
+    "src/imu_sync.h",
+    "src/main.c",
+    "test_imu_link.py",
+    "test_imu_radio.py",
+    "test_imu_startup.py",
+    "third_party/bno055/bno055.c",
+    "third_party/bno055/bno055.h",
+    "third_party/esb/esb.c",
+    "third_party/esb/esb_ppi.c",
+    "verify_uf2.py"
+  ],
+  "limits": [
+    "RF/USB power/cable/driver disconnections not measured on boards",
+    "Clock uncertainty is an estimate, not hardware proof",
+    "BNO055 timestamp is I2C read completion, not internal fusion epoch",
+    "Mega/hub alignment still uses USB receipt estimates; no new RMSE trial",
+    "Channel 80 and +8 dBm require verification in the actual environment"
+  ]
+}

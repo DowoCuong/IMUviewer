@@ -1,0 +1,121 @@
+GIAO THỨC QUALITY v1 — 31/10/2026
+
+Nguồn hợp đồng: src/imu_protocol.h, imu_radio.c; decoder app core/protocol.py.
+IMU_VERSION vẫn1, USB vẫn IMU1 + LE u16 length + LE u32 receiver_event_low32 +
+payload + CRC32(length,event,payload). Mọi số nguyên little-endian.
+Type1–10 giữ layout cũ. Type11/12 là extension mới; parser cũ sẽ từ chối chúng.
+IMU_QUALITY=y trong 7 profile release. Profile n không có các bảo đảm mới.
+
+Type11 QUALITY_DATA,64B:
+0 version u8=1;1 type u8=11;2 node u8=1..4;3 flags u8.
+4 boot_session u32;8 measurement_tx_seq u32;12 successful_read_seq u32.
+16 read_completed_local_us u64;24 qw/qx/qy/qz 4*s16 /16384.
+32 CALIB_STAT u8;33 sensor_state u8 (0initializing,1calibrating,2ready,3fault).
+34 calibration_age_ms u8;35 fusion_health_age_ms u8.
+36 sensor_epoch u32.
+40 local_anchor u32;44 hub_anchor u32;48 clock_ppm s32;
+52 clock_fit_uncertainty_us u32;56 hub_clock_session u32;60 read_duration_us u32.
+
+Flags như trước:1 VALID,2 SYNCED,4 STALE,8 PAUSED; high nibble reserved=0.
+SYNCED bắt buộc. VALID có nghĩa một read quaternion thành công trong epoch này,
+không phải chứng nhận usable. VALID có thể tắt để báo initializing/no-sample/
+sample quá già; decoder vẫn xử lý epoch nhưng không map timestamp/đọc quaternion
+để tính góc. Không dựng quaternion giả cho trạng thái này. Norm được host kiểm tra.
+Duration trên packet bão hòa30000 nếu mẫu invalid; không dùng nó để khôi phục mẫu.
+
+Age = ceil((serialize_time-last_successful_check)/1000);0..254 bão hòa,255unknown.
+Không gọi calibration và quaternion là snapshot nguyên tử bên trong BNO.
+Health failure lập tức UNKNOWN và không refresh timestamp thành công. Health
+GOOD cần hai lần đọc liên tiếp SYS_STATUS5,SYS_ERR0,NDOF0x0c,normalpower0,
+UNIT_SEL0x80. Init kiểm tra axis remap0x24/sign0/unit0x80. Calibration đọc20Hz,
+TTL100ms. Đây là policy kỹ thuật chưa xác nhận bằng hardware. Hard health fault
+chặn READY, không tự reset chỉ vì một health transaction lỗi. Lỗi đọc quaternion
+vẫn recovery có sleep1s. Không có ngắt DRDY được bật trong release này.
+
+Host usable cần VALID,!STALE,!PAUSED,state2,cal255,ages<=100,clock fit đúng và
+quaternion norm hợp lệ. Decoder cộng một upper bound age đến hub RX tính từ
+read-completion; phần chờ trước serialize có thể bị tính thừa nên bảo thủ.
+Synchronizer cộng thêm thời gian tới tick sử dụng, không nội suy>30ms/ngoại suy.
+Điều này không đo thời gian chờ trong USB trước khi PC nhận. Khi không còn mẫu
+đến, hệ thống không ngoại suy góc mới. Không suy tổng timing uncertainty từ TTL.
+Mapping giữ hub_anchor_extended + signed32(completed-local_anchor)/(1+ppm/1e6).
+abs(ppm)<=200,uncertainty<=50us,read duration<=30000us,localdelta<=120000us.
+50us là clock-fit gate, không phải sai số thời gian BNO/encoder toàn hệ thống.
+
+Type12 HEALTH,64B:
+Ngoại lệ USB-only: node0,flags0,page3 là health USB của hub (1Hz), không có IMU/
+sensor epoch, không tham gia tracking sensor/đo góc. Chỉ counters page3 có nghĩa.
+Header0..15 như trên nhưng type12,flags2;tx_seq là HEALTH sequence riêng,
+read_seq là snapshot sensor read_seq. Không tính health vào measurement rate/gap.
+16 health_snapshot_local_us u64;24 sensor_epoch u32;28 SW_REV_ID u16 gốc;
+30 health u8 (0unknown,1good,2fault);31 reason u8 (0none,1quality-I2C,
+2fusion/status/config fault,4waiting/unknown;3reserved).
+32calibration;33sensor_state;34cal_age_ms;35health_age_ms;
+36SYS_STATUS;37SYS_ERR;38OPR_MODE;39page(0..3).
+40..63 sáu cumulative u32:
+page0: reads,I2C_errors,acquisition_skips,recovery_count,init_count,NVS_state.
+page1: successful_radio_submissions,aggregate_radio_errors,ack_ok,ack_failed,
+       tx_timeout,slot_skips.
+page2: aggregate_invalid,rx_bad_payload,rx_wrong_pipe_or_type,application_rx_queue_full,
+       esb_rx_fifo_full,sync_losses.
+page3: USB_output_queue_drop,USB_drop,USB_stall_or_disconnect_abort,0,0,0.
+Mỗi trang có snapshot timestamp riêng. Không ghép bốn trang thành một snapshot
+nguyên tử. Mọi counter là từ boot; radio role changes không reset chúng.
+Aggregate_radio_errors giữ ý nghĩa tương thích cũ (gồm write/config/deadline),
+không phải chỉ lỗi submit. ack_failed không đếm thêm cho transaction timeout.
+ack_ok chỉ gồm transaction cần ACK. Radio counters gồm DATA và HEALTH; DATA
+sequence/rate riêng. ACK fail không chứng minh DATA đã không đến hub.
+ESB fifo overflow là bỏ do đầy FIFO ở driver, khác application queue full.
+USB dropped vì không có DTR khác với USB stall/abort khi một record đã được gửi.
+Radio STATS cũ vẫn là aggregate, không dùng thay các reason counters mới.
+
+Lịch: frame40ms, beacon0/followup1200us; slothealth3000us dài1ms.
+seq%20=0/1/2/3 chọn node1/2/3/4, còn lại bỏ trống. Mỗi node1,25 health/s,
+mỗi trang0,3125Hz. DATA giữ5/6/7/8ms +10ms*k,k0..3:100gói/s/node.
+Không kịp start<=100us thì skip; transmit timeout đo từ submission tx_start,
+elapsed>=700us bị loại/disable; với start trễ<=100us vẫn còn guard của slot1ms.
+Không retry/catch-up. Mode change phải xong trước gate; mô hình C đã kiểm tra
+owner/skip/wrap. Chưa đo timing GPIO/RF/I2C thực tế trên board.
+
+Sensor_epoch tăng trước initialize/reset hoặc calibration transaction vàoCONFIG
+(S/L, kể cả thất bại một phần). Invalidate cached VALID cùng lock; không gắn epoch
+mới lên mẫu cũ hợp lệ. C erase-only,Q,P/R không đổi epoch nếu không đổi mode.
+Timeout S/L/C giữ radio paused tới khi sensor mailbox hết RUNNING/ABANDONED;
+main chỉ resume khi worker đã hoàn tất. Command timeout không xác nhận side
+effect thất bại: Q/health/readback sau đó mới cung cấp quan sát tiếp theo.
+
+PC xử lý epoch từ health hoặc DATA trước usable/time gate. Epoch lùi bị bỏ;
+tracker giữ tối đa8 boot session cũ/node để chặn queued packet; ngoài cửa sổ
+này/ID boot bị trùng thì không có chứng minh phân biệt reboot tuyệt đối.
+Reset dừng trial định lượng, vô hiệu mốc/profile đang dùng; raw tiếp tục thu.
+Tạo phiên mới/hiệu chuẩn mới để bắt đầu lại. Không tự áp lại profile khác epoch.
+
+Ma trận tương thích:
+- App2.3 strict + hubQUALITY + nodeQUALITY: hỗ trợ đầy đủ metadata mới.
+- App2.3 strict + hubQUALITY + nodelegacy: raw đọc được, góc legacy bị chặn.
+- App2.3 --legacy-quality + hub mới/cũ + nodelegacy: giữ phép tính cũ, chất lượng
+  bổ sung UNKNOWN; chế độ hiện trong status/export. Không chứng nhận epoch/TTL.
+- NodeQUALITY + hub cũ: không hỗ trợ type11/12; ACK không chứng minh PC hiểu.
+- App cũ + hubQUALITY + nodeQUALITY: không hỗ trợ type11/12.
+- Testnode3/4 vẫn type10; health có thể có, không có quaternion/không vàoRMSE.
+Nâng cấp app→hub→node. UF2 phải đúng ID/real-vs-test. Không đổi firmware chỉ vì
+đổi mapping từ chân sang tay; chọn mô hình trong app và hiệu chuẩn cách gắn.
+
+B? SUNG PERFORMANCE v2 / APP2.3.1:
+- Quaternion ???c ??c tr??c health/diagnostic. Deadline10ms tuy?t ??i;
+  health50ms tuy?t ??i, b? k? tr?, kh?ng catch-up. Diagnostic500ms ???c ho?n
+  khi thi?u kho?ng tr?ng. Ng?n s?ch diagnostic l? max ?? quan s?t+1ms,
+  b?t ??u3ms, b?o h?a8ms ?? c?n th? l?i sau timeout; kh?ng ph?i bound I2C.
+- Calibration read l?i k?t th?c l??t health: UNKNOWN, kh?ng ??c status ti?p.
+- Diagnostic ho?n kh?ng refresh timestamp. L?i diagnostic kh?ng refresh th?i
+  ?i?m th?nh c?ng v? ???c ??m; giao d?ch timeout v?n c? th? l?m m?t m?u.
+- M? h?nh C nominal m?i transaction1ms c? interval10ms v? health50ms.
+  ?i?u n?y kh?ng ch?ng minh cadence/latency tr?n MCU th?t.
+- App2.3.1 + firmware PERFORMANCE: ??y ?? page2/page3 hub.
+- App2.3.1 + QUALITY v1: nh?n DATA v? page3; thi?u breakdown hub RX.
+- App2.3.0 QUALITY v1 + PERFORMANCE: type11/node HEALTH gi? t??ng th?ch;
+  node0/page2 m?i b? decoder v1 t? ch?i v? c? th? t?ng decoder error count.
+  Kh?ng d?ng t? h?p n?y ?? ??nh gi? invalid_packets. N?ng app tr??c hub.
+- Nodes QUALITY v1/v2 gi? c?ng layout DATA v? l?ch RF; c? th? n?ng l?n l??t,
+  nh?ng ghi version t?ng node v? acquisition kh?c nhau.
+- C?c t? h?p legacy c?n l?i gi? gi?i h?n trong ma tr?n ph?a tr?n.

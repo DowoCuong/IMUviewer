@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "gait",
+    "exit_code": 0,
+    "state": {
+      "title": "\u0110o g\u00f3c chi d\u01b0\u1edbi",
+      "cards": 0,
+      "errors": [],
+      "passed": true
+    }
+  },
+  {
+    "mode": "bench",
+    "exit_code": 0,
+    "state": {
+      "title": "Ki\u1ec3m tra IMU v\u1edbi encoder",
+      "cards": 0,
+      "errors": [],
+      "passed": true
+    }
+  },
+  {
+    "mode": "motion",
+    "exit_code": 0,
+    "state": {
+      "title": "\u0110o g\u00f3c chi tr\u00ean",
+      "cards": 7,
+      "errors": [],
+      "passed": true
+    }
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "command": [
+    "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    "D:\\imu-web-min-main\\exports\\verification\\ui-refresh-20261116\\pytest-temp",
+    "-q"
+  ],
+  "exit_code": 0,
+  "javascript": [
+    {
+      "file": "app.js",
+      "exit_code": 0,
+      "error": ""
+    },
+    {
+      "file": "motion-view.js",
+      "exit_code": 0,
+      "error": ""
+    },
+    {
+      "file": "motion.js",
+      "exit_code": 0,
+      "error": ""
+    },
+    {
+      "file": "bench.js",
+      "exit_code": 0,
+      "error": ""
+    }
+  ]
+}

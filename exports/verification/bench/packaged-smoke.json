@@ -1,0 +1,32 @@
+{
+  "version": "2.1.0",
+  "hardware_opened": false,
+  "pages": [
+    {
+      "arguments": [],
+      "alive_after_seconds": 4,
+      "terminated_by_test": true
+    },
+    {
+      "arguments": [
+        "--bench"
+      ],
+      "alive_after_seconds": 4,
+      "terminated_by_test": true
+    }
+  ],
+  "cycle_command_check": true,
+  "ui_assets_match_source": true,
+  "files": [
+    {
+      "path": "D:\\imu-web-min-main\\dist\\IMUJointViewer\\IMUJointViewer.exe",
+      "bytes": 1378185,
+      "sha256": "c176030d2f2c06ac7363fc6cd7e1c2d92aca10150e4a0298fd2eef699f27d6cb"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\dist-installer\\IMUJointViewer-Setup.exe",
+      "bytes": 119232463,
+      "sha256": "341364d2f406f57f3fc23b1d2c8d85a7571f063585761a0dd6cb5e1f189ba3a0"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "app_version": "2.1.0",
+  "sdk": "nRF Connect SDK 3.4.0",
+  "nodes": 4,
+  "acquisition_hz": 100,
+  "radio_hz_per_node": 100,
+  "packet": "IMU1 type 9 TIMED_DATA, 64 bytes",
+  "flashed": false,
+  "files": [
+    {
+      "file": "imu-hub-accuracy-gait100.uf2",
+      "bytes": 148992,
+      "sha256": "19fb029fd2d13123d1e0d7bd098b574d25d52321597ee12304e74dde97e5eb75"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n1.uf2",
+      "bytes": 172544,
+      "sha256": "a5ca44b68cdd722d2bfca37135ac2f7d87d08dd7fa972992485822d05c6e6cf8"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n2.uf2",
+      "bytes": 172544,
+      "sha256": "cbe8714896f5852a57a3638f106c7ca4220c9a8a20c63c25e15eb4fa73a47384"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n3.uf2",
+      "bytes": 172544,
+      "sha256": "e0b8087e9b56096e944c5d21d7748208f6f5e8d1eb625e90abfd0d807b74931c"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n4.uf2",
+      "bytes": 172544,
+      "sha256": "2e649d27d1ab6005d022f839bf81d4a2eaa75851cbc69e6848d0496916a7fc45"
+    }
+  ],
+  "source": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb",
+  "limitations": [
+    "Clock fit is a software estimate.",
+    "Timestamp is read completion; BNO internal fusion epoch remains unverified.",
+    "Hardware RF timing and physical angle accuracy require measurement."
+  ],
+  "compatible_app_versions": [
+    "2.0.0",
+    "2.1.0"
+  ],
+  "firmware_revision": "gait-link-20261021-v1",
+  "built_at": "2026-10-21T12:04:47.681798+00:00",
+  "changed_source_sha256": {
+    "README.md": "beb6eb67f633e23d0f893d49bc025fbec74949840b888e2091ee60df025cb8b0",
+    "build-imu.ps1": "3d9575f9e4a3494f1fd1ac06afe2f1f45ef5cbf746dcc7d7fff951d0e5a42679",
+    "prx/CMakeLists.txt": "bbb3ad1a132921ad6c9c04acd6f06a382e5a38fb65a173ac9660b86262877b8f",
+    "prx/Kconfig": "104485be4f0eb193e1d4ea5a2f0f0d2249536c57b9623ea0f1b5a1c4a540f082",
+    "prx/gait100.conf": "8fd0febe325c84ce90c7e6ba69121bd29a4f21fc999b001c7a75e6c6f92ed12b",
+    "prx/prj.conf": "b3cfb5b13dd3115938420a3ed7804f2ea9a15bcb4799802db3bf5da4274cba1c",
+    "ptx/Kconfig": "acadb573e760790fc485bad454817a7afa0630656be9da6e18a0e5b223a9f58e",
+    "ptx/gait100-n1.conf": "f6c429a96d49987593f4f2d6c1be3ee7a077a4c6ce398ed91542c521ff7dd95a",
+    "ptx/gait100-n2.conf": "7d4f990e3fc0e226e5054023c8c41c5ae1a821da05f1ddc283ea7ec11aaa7588",
+    "ptx/gait100-n3.conf": "4830d847a1848fb444f178ec5623972adba3e6450c56db8fd75b917db7ca4523",
+    "ptx/gait100-n4.conf": "084aecf7f0ba7c88dff8ca7d35db76bc67be1e99201ed1d53f1b368746f96f74",
+    "ptx/prj.conf": "bf00d5ec84b8634215d1523095af9a50ef4fc792284026d37eacc55cb72ca0b9",
+    "src/imu_main.c": "20ada4766366d54ef6683f725018951408036dc0fcb061dab0860bce5d542247",
+    "src/imu_radio.c": "8804fc7e10a2eb71030760dbe623ad8180af482b031388af6221f55cde4cea6a",
+    "src/imu_sync.h": "9e0e3a671254c502773718004190cd4aee3db9376706d3e9b72cdfa7c43aa489",
+    "src/main.c": "1f9a707994f2960bac353d2688e0f9caa63b5bb29d97b042406ba53e5558ed30",
+    "test_imu_link.py": "8370ee27663fa9581b3328d7a1a75228b52ad6ff26fb285eeb7c41fb3e374cd0",
+    "test_imu_radio.py": "896ea4adb52525b004ed037841a2382db7df214d0b7ec281e9bcfe0319d648dc",
+    "test_imu_startup.py": "ba58be992b22106e3f1c21abdcf71a96ce036c9ad7d3aeb5a2f5e1c2678bed6f",
+    "third_party/bno055/bno055.c": "df90512c4102e9265bdbc8dd9950fe8e9f4300c8f2dffd66a93e023086a8ef55",
+    "third_party/bno055/bno055.h": "f09691c2d714bfaf6ff320be6a0561ff944e0145fd03c1df7ff8cd1ca0d04449",
+    "third_party/esb/esb.c": "91894994ac9de223a04e031a33bd839d0df4e9ec31c199a62e1fb724083e76b6",
+    "third_party/esb/esb_ppi.c": "edf070b495c940609ddccaad7344c51419489bedb806d41aa7963f3de95c9fd0",
+    "verify_uf2.py": "b6908f5a3ce05648cc93ce8bda25391a70f2e235fc7514ae3b93622f0d972a1a"
+  },
+  "verification_report": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb\\evidence\\link-upgrade-20261021\\verification.json",
+  "source_archive": "source.zip",
+  "source_archive_sha256": "b04307ca772db42c161e26789ccedf4ab1920826df300dd8ce0f64e464da70a8",
+  "radio": {
+    "bitrate_mbps": 2,
+    "tx_power_dbm": 8,
+    "channel": 80,
+    "frequency_mhz": 2480,
+    "base0": "a76d3291",
+    "base1": "5b84d326",
+    "prefixes": "39527496b8daec4f",
+    "retries": 0,
+    "frame_us": 40000,
+    "slot_us": 1000,
+    "tx_deadline_us": 700,
+    "max_slot_lateness_us": 100,
+    "sync_bound_us": 50,
+    "sync_expiry_us": 120000
+  },
+  "update_all_boards_required": true,
+  "reference_source": "C:\\Users\\doman\\OneDrive\\Documents\\ChatGPT\\max30102 2\\firmware\\releases\\esb8-20261012-v1"
+}

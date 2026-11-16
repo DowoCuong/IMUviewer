@@ -1,0 +1,29 @@
+APP 2.3.1 / FIRMWARE QUALITY31/10 — HƯỚNG DẪN
+
+Portable không cần cài lại ứng dụng/Python. Giữ _internal cạnh EXE.
+Mo-chi-tren.cmd: chi trên/chi dưới nâng cao. Mo-gait.cmd: gait cũ.
+Mo-encoder.cmd: bench encoder hoặc xem mạng. Mo-tuong-thich-cu.cmd bật rõ
+--legacy-quality cho node cũ; mức chất lượng/epoch bổ sung khi đó UNKNOWN.
+Mặc định strict: cần firmware QUALITY ở hub và node thật để tính góc.
+App vẫn đọc raw/log cũ; không tự hạ strict khi không có packet mới.
+
+Nâng cấp app→hub→nodes theo PROTOCOL.txt. Giữ bản LED31/10 và portable
+dist-motion-20261031 để quay lui. Không nạp board trống bằng firmware real nếu
+chỉ muốn tạo tải. Test-n3/n4 không cung cấp quaternion cho phép đo.
+Epoch thay đổi làm trial dừng và hủy mốc đang dùng; raw tiếp tục được thu.
+Xuất dữ liệu, ngắt kết nối/tạo phiên mới rồi hiệu chuẩn lại sau khi node ổn định.
+Profile từ epoch khác bị từ chối; không dùng mốc để che thay đổi heading.
+
+CALIB FULL là trạng thái gần nhất của BNO, không phải chứng chỉ sai số<1°.
+Health UNKNOWN không được dùng tính góc; thiếu dữ liệu/RMSE để trống/null.
+Timestamp vẫn là I2C read-completion quy đổi clock hub. Chưa bật DRDY và chưa
+đồng bộ phần cứng encoder. Xem HARDWARE_VALIDATION.txt cho phần còn phải đo.
+Đếm packet/gap từ USB không phải RF loss thuần. Các health page có thời gian
+riêng, không ghép thành một snapshot nguyên tử. Giới hạn bench paired rows
+trong RAM của bản cũ vẫn còn; đường raw và motion rows ghi theo luồng.
+
+Nguồn/schema và chính sách quality: PROTOCOL.txt. Hướng dẫn góc/mapping/cách
+gắn và hiệu chuẩn: HUONG-DAN-CHI-TREN.md. Không thay quy ước góc theo firmware.
+
+PERFORMANCE v2: hub RX breakdown ? bench; HEALTH node0 page2/page3 ???c gi? ri?ng.
+N?ng app tr??c hub. Xem ma tr?n trong PROTOCOL.txt.

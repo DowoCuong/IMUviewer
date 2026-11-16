@@ -1,0 +1,169 @@
+{
+  "checked_at": "2026-10-19T09:18:48.585577+00:00",
+  "hardware_opened": false,
+  "flashed": false,
+  "motor_run": false,
+  "backup": "D:\\imu-web-min-main\\backups\\before_firmware_audit_20261019_161000.zip",
+  "test_runs": [
+    {
+      "name": "nrf",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        ".",
+        "-p",
+        "test_imu*.py",
+        "-q"
+      ],
+      "cwd": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb",
+      "exit_code": 0,
+      "tests": 80,
+      "duration_seconds": 23.24
+    },
+    {
+      "name": "app_and_arduino",
+      "command": [
+        "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-q"
+      ],
+      "cwd": "D:\\imu-web-min-main",
+      "exit_code": 0,
+      "tests": 104,
+      "duration_seconds": 3.316
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\imu-hub-accuracy-gait100.uf2",
+      "bytes": 147456,
+      "sha256": "62e1bce19b113d797a5046e3aa81338092ebbe150d2723c9e2e297b16fbf5e51"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\imu-tx-accuracy-gait100-n1.uf2",
+      "bytes": 170496,
+      "sha256": "4a84cce82dd63e9246e110dd9e0336dd8e9eb683bcadf1e518148b21dda4fc09"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\imu-tx-accuracy-gait100-n2.uf2",
+      "bytes": 170496,
+      "sha256": "cbeb45f45b982c79204d67df50aff5e73f99b5ca3831cf6c52e80d3b405f192e"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\imu-tx-accuracy-gait100-n3.uf2",
+      "bytes": 170496,
+      "sha256": "91327cd1a0b9242d96b508474032b1b73522ad95634333bcaaf00090ee613d71"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\imu-tx-accuracy-gait100-n4.uf2",
+      "bytes": 170496,
+      "sha256": "470cf4ca3613da785181cb9de92d279e8eb0c4e1452d366276d49e65b681530b"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.hex",
+      "bytes": 17858,
+      "sha256": "20f952d353fb4cec639ba34e0fbf117c8cda83afc4f525832e2452091e6aefd7"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.hex",
+      "bytes": 35817,
+      "sha256": "b316eecbb55ccde83c8eb95b2aa5ce9a9017e2b6d41033bb62cea16a43809002"
+    }
+  ],
+  "nrf_build_objects_current": true,
+  "arduino_build": {
+    "core": "C:\\Users\\doman\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.8",
+    "compiler": "C:\\Users\\doman\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin",
+    "uploaded": false,
+    "boards": [
+      {
+        "board": "AVR_MEGA2560",
+        "source": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.ino",
+        "hex": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.hex",
+        "flash_bytes": 6342,
+        "ram_bytes": 268,
+        "source_sha256": "1881a22b4b592246bcdbc7624187f149854d25b7e248a67aab3fcd93665274ef",
+        "hex_sha256": "20f952d353fb4cec639ba34e0fbf117c8cda83afc4f525832e2452091e6aefd7"
+      },
+      {
+        "board": "AVR_UNO",
+        "source": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.ino",
+        "hex": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.hex",
+        "flash_bytes": 12728,
+        "ram_bytes": 484,
+        "source_sha256": "9cb5fb7b8cebfdf82ef0ac63be80e93f39a03453e73b9a21c5db1c1d7e1138e0",
+        "hex_sha256": "b316eecbb55ccde83c8eb95b2aa5ce9a9017e2b6d41033bb62cea16a43809002"
+      }
+    ]
+  },
+  "limitations": [
+    "No physical encoder/IMU accuracy trial performed",
+    "BNO timestamp is I2C read completion, not internal fusion epoch",
+    "Mega/hub alignment still uses approximate USB receipt anchors",
+    "Uno has no communication-loss watchdog; S completes current cycle",
+    "GPIO clock mocks do not validate motor mechanics, AVR ISR load or radio timing"
+  ],
+  "changed_source_files": [
+    {
+      "path": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb\\src\\imu_radio.c",
+      "sha256": "6565eee505da1730528de6ed87ceeaca7fab80c2484225c42556e27d12d51593"
+    },
+    {
+      "path": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb\\test_imu_timed.py",
+      "sha256": "fce03097d1ecec9505033e0e4017fb3ce37de5d7f3691287fa7a7aaa1754ed27"
+    },
+    {
+      "path": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb\\README.md",
+      "sha256": "fcbcb77688f4820ab875fdbbd17087a434209fa5f524370d73a042cafecc9921"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\tests\\test_arduino_firmware.py",
+      "sha256": "97ca399b17d091b40d804c8cd0dcfe39a9b909968c256736c9b3570af363c560"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\README.md",
+      "sha256": "3e3a7334504b742c3dfb5f13ed24531c4e89217b35079c14cdca02add8dc99dd"
+    },
+    {
+      "path": "C:\\Users\\doman\\OneDrive\\Desktop\\imu\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.ino",
+      "sha256": "1881a22b4b592246bcdbc7624187f149854d25b7e248a67aab3fcd93665274ef"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.ino",
+      "sha256": "1881a22b4b592246bcdbc7624187f149854d25b7e248a67aab3fcd93665274ef"
+    },
+    {
+      "path": "C:\\Users\\doman\\OneDrive\\Desktop\\imu\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.ino",
+      "sha256": "9cb5fb7b8cebfdf82ef0ac63be80e93f39a03453e73b9a21c5db1c1d7e1138e0"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.ino",
+      "sha256": "9cb5fb7b8cebfdf82ef0ac63be80e93f39a03453e73b9a21c5db1c1d7e1138e0"
+    },
+    {
+      "path": "C:\\Users\\doman\\OneDrive\\Desktop\\imu\\arduino_motion\\HUONG_DAN.md",
+      "sha256": "e261ac259d11788fd4401b89336a4b265dd17ff5f37fe69da7926d8668edaf9a"
+    },
+    {
+      "path": "D:\\imu-web-min-main\\firmware\\arduino_motion\\HUONG_DAN.md",
+      "sha256": "e261ac259d11788fd4401b89336a4b265dd17ff5f37fe69da7926d8668edaf9a"
+    }
+  ],
+  "new_tests": {
+    "arduino_native_sketch": 15,
+    "nrf_actual_radio_source": 3
+  },
+  "baseline": {
+    "existing_nrf_tests": 77,
+    "new_arduino_checks_failed_before_fix": 9,
+    "new_nrf_checks_failed_before_fix": 2
+  },
+  "backup_sha256": "9b01e55ff4f6ec784cd0db181657903894e110b1eefe3c4e78e6f07414aa716a"
+}

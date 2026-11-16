@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiểm tra IMU với encoder</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="bench.css">
+<script src="qrc:///qtwebchannel/qwebchannel.js"></script></head>
+<body>
+<div class="app-shell">
+<header class="app-header"><div class="brand"><div><h1>Kiểm tra IMU với encoder</h1><p>Đối chiếu góc đo · tính sai số · lưu dữ liệu gốc</p></div></div>
+<div class="header-meta"><button id="motorStopTop" class="secondary-button motor-stop" disabled title="Dừng mềm; nếu quay lặp sẽ về gốc chu kỳ trước khi dừng">Dừng motor · S</button><a id="gaitLink" class="text-button" href="index.html">Đo góc khi đi bộ</a><a id="motionLink" class="text-button" href="motion.html">Chi trên / nâng cao</a><span id="benchBadge" class="connection-badge offline">Chưa kết nối</span></div></header>
+<main class="bench-workspace">
+<aside class="panel bench-controls">
+<div class="panel-heading"><h2>Thiết bị</h2><button id="benchRefresh" class="text-button">Làm mới cổng</button></div>
+<label class="field-label" for="benchImuPort">Cổng bộ thu IMU</label><select id="benchImuPort" class="field-control setup"></select>
+<label class="field-label" for="benchEncoderPort">Cổng Mega đọc encoder · tùy chọn khi kiểm tra vô tuyến</label><select id="benchEncoderPort" class="field-control setup"></select>
+<p class="calibration-hint">Chỉ kiểm tra bốn node: chọn cổng hub, để trống encoder và motor, rồi bấm Kết nối. Dùng định dạng nhị phân với firmware hiện tại.</p>
+<label class="field-label" for="benchMotorPort">Cổng Uno điều khiển motor · tùy chọn</label><select id="benchMotorPort" class="field-control setup"></select>
+<label class="field-label" for="benchProtocol">Dữ liệu IMU · tốc độ 115200</label><select id="benchProtocol" class="field-control setup"><option value="binary">IMU1 nhị phân có thông tin thời gian</option><option value="quaternion">Quaternion dạng chữ · chung đồng hồ</option><option value="euler_zyx">Euler ZYX dạng chữ · chung đồng hồ</option></select>
+<div class="bench-fields"><label>IMU đoạn trên<select id="benchParent" class="field-control setup"><option>1</option><option>2</option><option>3</option><option>4</option></select></label><label>IMU đoạn dưới<select id="benchChild" class="field-control setup"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label></div>
+<div class="bench-fields"><label>Kênh encoder<select id="benchChannel" class="field-control setup"><option>1</option><option>2</option></select></label><label>Chiều góc IMU<select id="benchSign" class="field-control setup"><option value="1">+1</option><option value="-1">−1</option></select></label></div>
+<label class="field-label" for="benchAxis">Trục quay trên cảm biến đoạn trên</label><select id="benchAxis" class="field-control setup"><option value="x">X</option><option value="y" selected>Y</option><option value="z">Z</option></select>
+<div class="bench-fields"><label>Số xung đếm / vòng<input id="benchCpr" class="field-control setup" type="number" min="1" max="10000000" value="2500"></label><label>Khoảng nội suy tối đa (ms)<input id="benchGap" class="field-control setup" type="number" min="10" max="200" value="30"></label></div>
+<p class="calibration-hint">Góc chuẩn lấy từ số xung đếm có dấu, không lấy góc lệnh motor. Mặc định 2500 xung/vòng, tương đương 0,144°/xung. Độ phân giải không phải độ chính xác.</p>
+<div class="button-row"><button id="benchConnect" class="primary-button">Kết nối</button><button id="benchDisconnect" class="secondary-button" disabled>Ngắt kết nối</button></div>
+<div class="divider"></div><h2>Phép thử</h2>
+<button id="benchZero" class="secondary-button full-width" disabled>Lấy mốc 0° · giữ yên 3 giây</button>
+<p class="calibration-hint">Chọn trục cảm biến trùng trục quay. Lấy mốc trước khi chuyển động và chọn chiều +1/−1 cho đúng. Phép thử chỉ cần hai IMU.</p>
+<div class="button-row"><button id="benchStart" class="primary-button" disabled>Bắt đầu ghi phép thử</button><button id="benchStop" class="secondary-button" disabled>Dừng phép thử</button></div>
+<button id="benchExport" class="export-button" disabled>Xuất dữ liệu đối chiếu / đường truyền</button>
+<button id="benchClear" class="text-button full-width">Xóa phép thử · cần ngắt kết nối</button>
+<div class="divider"></div><h2>Điều khiển motor</h2>
+<p id="motorState" class="calibration-state">Uno chưa kết nối</p>
+<div class="bench-fields"><label>Góc quay motor 1 (°)<input id="motorAngle1" class="field-control" type="number" min="-360" max="360" step="1" value="90"></label><label>Góc quay motor 2 (°)<input id="motorAngle2" class="field-control" type="number" min="-360" max="360" step="1" value="0"></label></div>
+<div class="button-row"><button id="motorMove" class="secondary-button" disabled>Quay một lần · M</button><button id="motorCycle" class="secondary-button" disabled>Quay lặp · C</button></div>
+<button id="motorStop" class="secondary-button full-width motor-stop" disabled>Dừng mềm / về gốc chu kỳ · S</button>
+<p class="calibration-hint">Lệnh S dừng mềm; nếu đang quay lặp, motor về gốc chu kỳ rồi dừng. Kết nối không tự làm motor quay.</p>
+</aside>
+<section class="bench-results">
+<div class="panel timing-banner"><strong>Đồng bộ qua USB còn gần đúng</strong><p>Hai IMU dùng chung giờ của bộ thu. Mega được ghép giờ theo lúc máy tính nhận dữ liệu. Chưa loại hết trễ USB, lệch đồng hồ và trễ bên trong BNO055. Góc không được làm mượt hay sửa theo encoder để giảm sai số.</p></div>
+<div class="bench-metrics">
+<article class="panel bench-stat"><span>Góc IMU</span><strong id="benchImu">—</strong><small>Góc quay có dấu</small></article>
+<article class="panel bench-stat"><span>Góc encoder</span><strong id="benchEncoder">—</strong><small>Tính từ xung encoder đã đo</small></article>
+<article class="panel bench-stat"><span>Sai số RMSE</span><strong id="benchRmse">—</strong><small id="benchSamples">0 mẫu đối chiếu</small></article>
+<article class="panel bench-stat"><span>Độ lệch trung bình</span><strong id="benchBias">—</strong><small id="benchMax">Lớn nhất —</small></article>
+</div>
+<section class="panel bench-chart-panel"><div class="panel-heading"><h2>Góc IMU và encoder</h2><span class="calibration-hint">30 giây gần nhất · IMU xanh · encoder cam</span></div><div class="bench-chart-wrap"><canvas id="benchAngles"></canvas></div></section>
+<section class="panel bench-chart-panel"><div class="panel-heading"><h2>Sai số có dấu · IMU − encoder</h2><span id="benchOffAxis" class="calibration-hint">Góc quay lệch trục —</span></div><div class="bench-chart-wrap"><canvas id="benchErrors"></canvas></div></section>
+<section class="panel bench-status"><p id="benchStatus" role="status">Kết nối thiết bị → lấy mốc 0° → bắt đầu ghi → cho cơ cấu quay.</p><p id="benchCounters" class="calibration-hint">Đợi dữ liệu từ encoder và IMU.</p>
+<details open><summary>Đường truyền 4 node · thống kê từ lúc kết nối</summary>
+<table style="width:100%;font-size:11px;text-align:left"><thead><tr><th>Node</th><th>Loại dữ liệu</th><th>Gói nhận</th><th>Gói/s</th><th>Thiếu số thứ tự</th><th>Hiệu chuẩn</th></tr></thead><tbody id="benchRadioRows"></tbody></table>
+<p id="benchRadioTiming" class="calibration-hint">Đợi gói đo và gói tạo tải.</p>
+<p class="calibration-hint">Node tạo tải không tham gia RMSE. Gói/s là trung bình theo giờ bộ thu; thiếu số thứ tự chưa chứng minh mất gói RF.</p>
+<p class="calibration-hint">Hiệu chuẩn theo thứ tự: hệ thống / con quay / gia tốc / từ trường. IMU phải đạt 3 / 3 / 3 / 3 để dùng tính góc. Đây là mức trong gói nhận gần nhất; trước lần phát đầu cần theo dõi USB trực tiếp trên node.</p>
+</details></section>
+</section></main></div><div id="toast" class="toast" role="status"></div><script src="bench.js"></script></body></html>

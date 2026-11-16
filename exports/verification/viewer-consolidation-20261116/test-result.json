@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\imu-web-min-main\\.venv310\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    "D:\\imu-web-min-main\\exports\\verification\\viewer-consolidation-20261116\\pytest-temp-release",
+    "-q"
+  ],
+  "exit_code": 0
+}

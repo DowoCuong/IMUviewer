@@ -1,0 +1,52 @@
+{
+  "app_version": "2.0.0",
+  "sdk": "nRF Connect SDK 3.4.0",
+  "nodes": 4,
+  "acquisition_hz": 100,
+  "radio_hz_per_node": 100,
+  "packet": "IMU1 type 9 TIMED_DATA, 64 bytes",
+  "flashed": false,
+  "files": [
+    {
+      "file": "imu-hub-accuracy-gait100.uf2",
+      "bytes": 147456,
+      "sha256": "62e1bce19b113d797a5046e3aa81338092ebbe150d2723c9e2e297b16fbf5e51"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n1.uf2",
+      "bytes": 170496,
+      "sha256": "4a84cce82dd63e9246e110dd9e0336dd8e9eb683bcadf1e518148b21dda4fc09"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n2.uf2",
+      "bytes": 170496,
+      "sha256": "cbeb45f45b982c79204d67df50aff5e73f99b5ca3831cf6c52e80d3b405f192e"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n3.uf2",
+      "bytes": 170496,
+      "sha256": "91327cd1a0b9242d96b508474032b1b73522ad95634333bcaaf00090ee613d71"
+    },
+    {
+      "file": "imu-tx-accuracy-gait100-n4.uf2",
+      "bytes": 170496,
+      "sha256": "470cf4ca3613da785181cb9de92d279e8eb0c4e1452d366276d49e65b681530b"
+    }
+  ],
+  "source": "D:\\IMU ESB\\NRF52840\\Firmware\\supermini_esb",
+  "limitations": [
+    "Clock fit is a software estimate.",
+    "Timestamp is read completion; BNO internal fusion epoch remains unverified.",
+    "Hardware RF timing and physical angle accuracy require measurement."
+  ],
+  "compatible_app_versions": [
+    "2.0.0",
+    "2.1.0"
+  ],
+  "firmware_revision": "2026-10-19-fault-records",
+  "built_at": "2026-10-19T09:18:48.054277+00:00",
+  "changed_source_sha256": {
+    "src/imu_radio.c": "6565eee505da1730528de6ed87ceeaca7fab80c2484225c42556e27d12d51593"
+  },
+  "verification_report": "D:\\imu-web-min-main\\exports\\verification\\firmware-audit-20261019\\verification.json"
+}

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imu-joint-viewer"
+dynamic = ["version"]
+description = "Windows desktop viewer for IMU joint angles and 3D motion"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "PySide6==6.7.3",
+    "pyserial==3.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.2.2"]
+
+[project.gui-scripts]
+imu-joint-viewer = "imu_desktop.main:main"
+
+[tool.setuptools.package-data]
+imu_desktop = [
+    "ui/*.html",
+    "ui/*.css",
+    "ui/*.js",
+    "ui/vendor/**/*.js",
+    "ui/models/*.glb",
+    "ui/assets/*.png",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "imu_desktop.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["imu_desktop*"]
+namespaces = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "version": "2.4.0",
+  "pages": [
+    {
+      "page": "index.html",
+      "title": "\u0110o g\u00f3c IMU",
+      "links": [
+        "bench.html",
+        "motion.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "motion.html",
+      "title": "\u0110o chi tr\u00ean v\u00e0 chi d\u01b0\u1edbi",
+      "links": [
+        "index.html",
+        "bench.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "bench.html",
+      "title": "Ki\u1ec3m tra IMU v\u1edbi encoder",
+      "links": [
+        "index.html",
+        "motion.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "index.html",
+      "title": "\u0110o g\u00f3c IMU",
+      "links": [
+        "bench.html",
+        "motion.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "bench.html",
+      "title": "Ki\u1ec3m tra IMU v\u1edbi encoder",
+      "links": [
+        "index.html",
+        "motion.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "motion.html",
+      "title": "\u0110o chi tr\u00ean v\u00e0 chi d\u01b0\u1edbi",
+      "links": [
+        "index.html",
+        "bench.html"
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "page": "index.html",
+      "title": "\u0110o g\u00f3c IMU",
+      "links": [
+        "bench.html",
+        "motion.html"
+      ],
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "one_window_one_bridge": true,
+  "serial_opened": false
+}

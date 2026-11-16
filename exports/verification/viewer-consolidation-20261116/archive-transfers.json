@@ -1,0 +1,37 @@
+[
+  {
+    "source": "D:\\imu-web-min-main\\backups\\portable-20261116-141020-544",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist",
+    "exe_sha256": "c176030d2f2c06ac7363fc6cd7e1c2d92aca10150e4a0298fd2eef699f27d6cb"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-mixed-bench-20261028",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-mixed-bench-20261028",
+    "exe_sha256": "fa02be766b6d37c87bb5be819266907df2902c211bb31d22b2fb7663858d7cf5"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-motion-20261031",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-motion-20261031",
+    "exe_sha256": "9d7f20d627a0a7ba12be7926ccde0357db9adc1c732b9d66edc1eb39b7cb90a8"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-performance-20261031",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-performance-20261031",
+    "exe_sha256": "c5c6428aeb9cba253a32288e2fb0db08447d0e7582caf657fc5eae4e4e1e4e8d"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-quality-20261031",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-quality-20261031",
+    "exe_sha256": "8c3c039467ffa3a09a92e7a66a837bb818a4c41075f13accfdd78d3b1c07517c"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-radio-bench-20261028",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-radio-bench-20261028",
+    "exe_sha256": "d90e8c95c62342733e5ee4784296937abd6570f4b4f19b6cf7198f58f1928ce8"
+  },
+  {
+    "source": "D:\\imu-web-min-main\\dist-installer",
+    "destination": "D:\\imu-web-min-main\\backups\\viewer-consolidation-20261116\\previous-builds\\dist-installer",
+    "exe_sha256": "341364d2f406f57f3fc23b1d2c8d85a7571f063585761a0dd6cb5e1f189ba3a0"
+  }
+]

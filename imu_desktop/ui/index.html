@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đo góc chi dưới</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M8 23.5 13.2 9l4.1 9.1L21.8 6 27 23.5"/><circle cx="8" cy="23.5" r="2.3"/><circle cx="13.2" cy="9" r="2.3"/><circle cx="17.3" cy="18.1" r="2.3"/><circle cx="21.8" cy="6" r="2.3"/><circle cx="27" cy="23.5" r="2.3"/></svg>
+        </div>
+        <div>
+          <h1>Đo góc chi dưới</h1>
+          <p>Theo dõi góc khớp</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <a id="benchLink" class="text-button" href="bench.html">Kiểm tra với encoder</a>
+        <a id="motionLink" class="text-button" href="motion.html">Đo góc chi trên</a>
+        <span class="privacy-note">Dữ liệu lưu trên máy</span>
+        <div class="komlab-credit" aria-label="Komlab Rehab, bởi DowoCuong">
+          <img src="assets/komlab-logo.png" alt="Biểu trưng Komlab Rehab">
+          <span><strong>Komlab Rehab</strong><small>bởi DowoCuong</small></span>
+        </div>
+        <div id="connectionBadge" class="connection-badge offline">
+          <span class="connection-dot"></span>
+          <span id="connectionText">Chưa kết nối</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel controls-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">Thiết bị</span>
+            <h2>Kết nối thiết bị</h2>
+          </div>
+          <button id="refreshPorts" class="icon-button" type="button" title="Làm mới danh sách cổng" aria-label="Làm mới danh sách cổng">
+            <svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6.1 8.5A7 7 0 0 1 18.7 7M17.9 15.5A7 7 0 0 1 5.3 17"/></svg>
+          </button>
+        </div>
+
+        <label class="field-label" for="portSelect">Cổng kết nối</label>
+        <select id="portSelect" class="field-control">
+          <option value="">Tự tìm cổng khi bắt đầu</option>
+        </select>
+        <p id="portDescription" class="field-hint">Chưa tìm thấy cổng kết nối.</p>
+
+        <label class="field-label" for="baudSelect">Tốc độ truyền</label>
+        <select id="baudSelect" class="field-control">
+          <option value="9600">9600</option>
+          <option value="19200">19200</option>
+          <option value="38400">38400</option>
+          <option value="57600">57600</option>
+          <option value="115200" selected>115200</option>
+          <option value="230400">230400</option>
+          <option value="460800">460800</option>
+          <option value="921600">921600</option>
+        </select>
+
+        <label class="field-label" for="protocolSelect">Định dạng dữ liệu IMU</label>
+        <select id="protocolSelect" class="field-control">
+          <option value="binary">BNO055 dạng nhị phân có thông tin thời gian</option>
+          <option value="quaternion">Quaternion dạng chữ · dùng chung đồng hồ</option>
+          <option value="euler_zyx">Euler ZYX dạng chữ · dùng chung đồng hồ</option>
+        </select>
+
+        <button id="startButton" class="primary-button" type="button">
+          <svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></svg>
+          Bắt đầu đo
+        </button>
+        <div class="button-row">
+          <button id="stopButton" class="secondary-button" type="button" disabled>Dừng đo</button>
+          <button id="resetMaxButton" class="secondary-button" type="button">Xóa góc lớn nhất</button>
+        </div>
+
+        <div class="divider"></div>
+        <div class="panel-heading compact"><div><span class="eyebrow">Chuẩn bị đo</span><h2>Hiệu chuẩn trục khớp</h2></div></div>
+        <p id="sensorHealth" class="calibration-hint">Chờ cảm biến: 1 chậu, 2 đùi, 3 cẳng chân, 4 bàn chân.</p>
+        <p id="calibrationState" class="calibration-state" role="status">Xem trước · chưa hiệu chuẩn</p>
+        <button id="neutralButton" class="secondary-button full-width" type="button" disabled>Lấy mốc đứng thẳng · giữ yên 3 giây</button>
+        <p class="calibration-hint">Giữ tư thế chuẩn đã biết. Sau đó hiệu chuẩn từng khớp: bắt đầu gấp khớp hoặc gấp mu chân theo chiều dương, lặp lại trong một mặt phẳng rồi xác nhận.</p>
+        <label class="field-label" for="calibrationJoint">Khớp cần hiệu chuẩn</label>
+        <select id="calibrationJoint" class="field-control"><option value="hip">Hông</option><option value="knee">Gối</option><option value="ankle">Cổ chân</option></select>
+        <button id="functionalButton" class="secondary-button full-width" type="button" disabled>Ghi chuyển động gấp/duỗi</button>
+        <div class="button-row">
+          <button id="loadProfileButton" class="secondary-button" type="button">Mở tệp hiệu chuẩn</button>
+          <button id="saveProfileButton" class="secondary-button" type="button">Lưu tệp hiệu chuẩn</button>
+        </div>
+        <p class="calibration-hint">Chỉ dùng lại tệp khi cách gắn cảm biến không đổi. Gắn lại cảm biến cần hiệu chuẩn lại. Góc đo được ghi sau khi hiệu chuẩn đủ ba khớp.</p>
+
+        <div class="divider"></div>
+
+        <div class="panel-heading compact">
+          <div>
+            <span class="eyebrow">Hiển thị</span>
+            <h2>Mô hình 3D</h2>
+          </div>
+        </div>
+        <div class="model-switch" role="radiogroup" aria-label="Mô hình 3D">
+          <button class="model-option active" data-model-id="lower" role="radio" aria-checked="true">
+            <span class="model-preview lower-preview"></span>
+            <span><strong>Thân dưới</strong><small>Chậu và hai chân</small></span>
+          </button>
+          <button class="model-option" data-model-id="full" role="radio" aria-checked="false">
+            <span class="model-preview full-preview"></span>
+            <span><strong>Toàn thân</strong><small>Mô hình đầy đủ</small></span>
+          </button>
+        </div>
+
+        <div class="divider"></div>
+        <button id="exportButton" class="export-button" type="button">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 19h14"/></svg>
+          Xuất dữ liệu đo CSV
+        </button>
+        <p class="protocol-note"><span>IMU</span> cảm biến 1–4 · góc khớp tương đối</p>
+        <button id="gaitEventsButton" class="secondary-button full-width" type="button">Mở mốc chạm đất / nhấc chân</button>
+        <p class="calibration-hint">CSV gồm t_ms,event: IC là chạm đất, TO là nhấc chân; thời gian cùng mốc với dữ liệu đo. Tệp xuất kèm dữ liệu gốc và hiệu chuẩn.</p>
+      </aside>
+
+      <section class="panel viewer-panel">
+        <div class="viewer-toolbar">
+          <div>
+            <span class="eyebrow">Tư thế hiện tại</span>
+            <h2 id="modelTitle">Mô hình thân dưới</h2>
+          </div>
+          <div class="viewer-actions">
+            <span id="modelStatus" class="model-status">Đang tải mô hình…</span>
+            <button id="resetPoseButton" class="icon-button dark" type="button" title="Đưa mô hình về tư thế ban đầu" aria-label="Đưa mô hình về tư thế ban đầu">
+              <svg viewBox="0 0 24 24"><path d="M4 4v6h6M20 20v-6h-6M5.6 15.5A7 7 0 0 0 18 17.8M18.4 8.5A7 7 0 0 0 6 6.2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="threeMount" class="three-mount" aria-label="Mô hình khớp 3D có thể xoay"></div>
+        <div class="viewer-legend">
+          <span><i class="legend-dot hip"></i>Hông</span>
+          <span><i class="legend-dot knee"></i>Gối</span>
+          <span><i class="legend-dot ankle"></i>Cổ chân</span>
+          <span class="viewer-hint">Cuộn chuột để phóng to / thu nhỏ</span>
+        </div>
+      </section>
+
+      <aside class="metrics-column">
+        <section class="panel metrics-panel">
+          <div class="panel-heading compact">
+            <div>
+              <span class="eyebrow">Kết quả đo</span>
+              <h2>Góc khớp</h2>
+            </div>
+            <span id="sampleRate" class="sample-rate">0 Hz</span>
+          </div>
+
+          <div class="angle-card hip-card">
+            <div class="angle-card-head"><span>Hông</span><small>Gấp / duỗi</small></div>
+            <div class="angle-value"><strong id="liveHip">0.0</strong><span>°</span></div>
+            <div class="angle-details">
+              <span>Lớn nhất <b id="maxHip">0.0°</b></span>
+              <span>Biên độ <b id="romHip">0.0°</b></span>
+            </div>
+            <p id="componentsHip" class="component-line">Dạng/khép — · Xoay —</p>
+          </div>
+          <div class="angle-card knee-card">
+            <div class="angle-card-head"><span>Gối</span><small>Gấp / duỗi</small></div>
+            <div class="angle-value"><strong id="liveKnee">0.0</strong><span>°</span></div>
+            <div class="angle-details">
+              <span>Lớn nhất <b id="maxKnee">0.0°</b></span>
+              <span>Biên độ <b id="romKnee">0.0°</b></span>
+            </div>
+            <p id="componentsKnee" class="component-line">Dạng/khép — · Xoay —</p>
+          </div>
+          <div class="angle-card ankle-card">
+            <div class="angle-card-head"><span>Cổ chân</span><small>Gấp mu / gấp gan chân</small></div>
+            <div class="angle-value"><strong id="liveAnkle">0.0</strong><span>°</span></div>
+            <div class="angle-details">
+              <span>Lớn nhất <b id="maxAnkle">0.0°</b></span>
+              <span>Biên độ <b id="romAnkle">0.0°</b></span>
+            </div>
+            <p id="componentsAnkle" class="component-line">Nghiêng trong/ngoài — · Xoay —</p>
+          </div>
+        </section>
+
+        <section class="panel session-panel">
+          <span class="eyebrow">Phiên đo hiện tại</span>
+          <div class="session-stat"><span>Số mẫu</span><strong id="sampleCount">0</strong></div>
+          <div class="session-stat"><span>Thời gian</span><strong id="sessionDuration">0.0 s</strong></div>
+          <div class="session-stat"><span>Trạng thái</span><strong id="sessionState">Sẵn sàng</strong></div>
+          <div id="gaitSummary" class="calibration-hint">Chưa có chu kỳ bước đi đã xác nhận</div>
+        </section>
+      </aside>
+
+      <section class="panel chart-panel">
+        <div class="chart-heading">
+          <div>
+            <span class="eyebrow">Dữ liệu theo thời gian</span>
+            <h2>Góc khớp theo thời gian</h2>
+          </div>
+          <div class="chart-legend">
+            <span><i class="legend-dot hip"></i>Hông</span>
+            <span><i class="legend-dot knee"></i>Gối</span>
+            <span><i class="legend-dot ankle"></i>Cổ chân</span>
+          </div>
+          <button id="clearChartButton" class="text-button" type="button">Xóa biểu đồ</button>
+          <button id="gaitModeButton" class="text-button" type="button" disabled>Trung bình chu kỳ</button>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="angleChart"></canvas>
+          <div id="chartEmpty" class="chart-empty">Bắt đầu đo để xem biểu đồ góc khớp.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    window.__startupErrors = [];
+    window.addEventListener('error', (event) => {
+      window.__startupErrors.push(event.message || 'Unknown interface error');
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+      window.__startupErrors.push(String(event.reason || 'Unknown interface rejection'));
+    });
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

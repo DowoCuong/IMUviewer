@@ -1,0 +1,66 @@
+{
+  "version": "2.4.1",
+  "tests_passed": 161,
+  "portable_files_verified": 1942,
+  "engine_files_unchanged": 17,
+  "ui": {
+    "load_status": "LoadSucceededStatus",
+    "url": "file:///D:/imu-web-min-main/imu_desktop/ui/motion.html",
+    "load_finished_ok": true,
+    "cards": 7,
+    "joints": 3,
+    "options": 6,
+    "blank": 6,
+    "errors": [],
+    "measured": false,
+    "passed": true,
+    "ui_batch_benchmark": {
+      "synthetic": true,
+      "batches": 400,
+      "p50_us": 299.9999998137355,
+      "p95_us": 399.99999990686774,
+      "p99_us": 1000
+    }
+  },
+  "portable_checks": [
+    {
+      "mode": "gait",
+      "exit_code": 0,
+      "state": {
+        "title": "\u0110o g\u00f3c chi d\u01b0\u1edbi",
+        "cards": 0,
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "mode": "bench",
+      "exit_code": 0,
+      "state": {
+        "title": "Ki\u1ec3m tra IMU v\u1edbi encoder",
+        "cards": 0,
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "mode": "motion",
+      "exit_code": 0,
+      "state": {
+        "title": "\u0110o g\u00f3c chi tr\u00ean",
+        "cards": 7,
+        "errors": [],
+        "passed": true
+      }
+    }
+  ],
+  "source_backup": "D:\\imu-web-min-main\\backups\\ui-refresh-20261116\\source",
+  "portable_rollback": "D:\\imu-web-min-main\\backups\\portable-20261116-143542-783",
+  "serial_opened": false,
+  "hardware_tested": false,
+  "motor_run": false,
+  "limitations": [
+    "Offscreen checks use the no-WebGL fallback; real GPU mannequin appearance not hardware-validated.",
+    "Mannequin rotations are illustrative and do not calculate measurement values."
+  ]
+}

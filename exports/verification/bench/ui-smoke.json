@@ -1,0 +1,36 @@
+{
+  "hardware_opened": false,
+  "paired_rows": 301,
+  "metrics": {
+    "count": 301,
+    "rmse_deg": 2.3826072603754165e-15,
+    "bias_deg": 6.550401264340307e-32,
+    "error_sd_deg": 2.382607260375416e-15,
+    "mae_deg": 1.0873546433870305e-15,
+    "max_abs_deg": 7.105427357601002e-15
+  },
+  "motor_commands": [
+    "M 90.000000 0.000000",
+    "S",
+    "S"
+  ],
+  "viewports": [
+    {
+      "overflow": false,
+      "badge": "\u0110\u00e3 k\u1ebft n\u1ed1i",
+      "rmse": "0.000\u00b0",
+      "samples": "301 m\u1eabu \u0111\u1ed1i chi\u1ebfu",
+      "chartWidth": 1054,
+      "chartHeight": 284
+    },
+    {
+      "overflow": false,
+      "badge": "\u0110\u00e3 k\u1ebft n\u1ed1i",
+      "rmse": "0.000\u00b0",
+      "samples": "301 m\u1eabu \u0111\u1ed1i chi\u1ebfu",
+      "chartWidth": 701,
+      "chartHeight": 140
+    }
+  ],
+  "clear_resets_values_and_rows": true
+}

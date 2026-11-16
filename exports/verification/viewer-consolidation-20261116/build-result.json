@@ -1,0 +1,11 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\imu-web-min-main\\packaging\\build_windows.ps1"
+  ],
+  "exit_code": 0
+}

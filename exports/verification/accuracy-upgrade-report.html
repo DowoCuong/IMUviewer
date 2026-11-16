@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Báo cáo nâng cấp IMU</title>
+<style>
+body{margin:0;background:#f1f5f9;color:#17243a;font:16px/1.65 system-ui,sans-serif}
+main{max-width:1150px;margin:36px auto;padding:30px;background:white;border-radius:14px}
+h1{font-size:30px;margin-bottom:0}h2{font-size:21px;margin-top:32px}small{color:#53657a}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{text-align:right;border-bottom:1px solid #dce3ec;padding:10px}
+td:first-child,th:first-child{text-align:left}th{background:#f1f5f9}.scroll{overflow-x:auto}
+.note{padding:16px 20px;background:#edf3fc;border-left:4px solid #335acb}a{color:#2455bd}
+img{max-width:100%;height:auto}code{background:#edf0f4;padding:2px 5px}li{margin:6px 0}
+@media(max-width:700px){main{margin:0;padding:18px}h1{font-size:24px}}
+</style>
+<main>
+<h1>Nâng cấp độ chính xác IMU</h1>
+<small>16/10/2026 · ứng dụng 2.0.0 · BNO055 · firmware nRF52840</small>
+<p class="note"><b>Đã hoàn tất nâng cấp phần mềm, build và kiểm chứng.</b> Báo cáo phân biệt test phần mềm, phân tích encoder cũ và độ chính xác đo thực tế. Chưa có phép đo mới sau khi nạp firmware; chưa chứng minh RMSE &lt;1° cho mọi góc khớp khi đeo trên người.</p>
+
+<h2>Thay đổi chính</h2>
+<ul>
+<li>Tính quaternion tương đối sau hiệu chuẩn sensor → segment; xuất chín thành phần có dấu theo ZXY. Bỏ trừ Euler, lấy trị tuyệt đối, deadband và giới hạn góc tùy ý.</li>
+<li>Hiệu chuẩn tư thế trung tính bằng trung bình quaternion và trục chức năng riêng cho hông, gối, cổ chân. Kiểm tra chuyển động, thiếu dữ liệu và chất lượng trục; giữ trục nghiêng để giảm góc chéo.</li>
+<li>Firmware gửi ánh xạ clock node → hub, drift, boot ID và thời gian đọc I2C. Ứng dụng nội suy quaternion cùng thời điểm; không ngoại suy hoặc ghép dữ liệu qua reboot; loại mẫu cũ và truyền lại.</li>
+<li>Lưu CSV góc thô, quaternion gốc, metadata và lịch sử hiệu chuẩn trong session ZIP. Sửa lỗi stop, xuất nhầm phiên, reset max, giá trị không hữu hạn, WebChannel và tích lũy trạng thái filter.</li>
+<li>Phân tích chu kỳ từ IC/TO đã xác nhận: stance/swing, ROM và đường cong trung bình/SD. Không giả định sự kiện tiếp xúc chỉ từ góc khớp.</li>
+<li>Mỗi mẫu cập nhật trực tiếp thay vì quét toàn bộ lịch sử. GUI nhận batch; CSV giữ toàn bộ mẫu hợp lệ.</li>
+</ul>
+
+<h2>Kiểm chứng dữ liệu encoder đã cung cấp</h2>
+<p>Nguồn: <code>C:\Users\doman\OneDrive\Desktop\import 2\imu_enc</code>. Dữ liệu gốc không bị sửa. Cột đo đã zero theo tư thế đầu; quy ước dấu lần lượt −1, −1, +1. Không bù độ trễ, không fit offset theo encoder, không làm mượt hoặc bỏ đỉnh để giảm RMSE. Bảng chính giữ mọi cặp hữu hạn có <code>Encoder_Valid=1</code>, kể cả reference cũ.</p>
+<div class="scroll"><table>
+<thead><tr><th>Cặp</th><th>Mẫu</th><th>RMSE CSV cũ</th><th>RMSE replay quaternion</th><th>Bias CSV</th><th>P95 |lỗi|</th><th>Max |lỗi|</th><th>Encoder cũ nhất</th></tr></thead>
+<tbody>
+<tr><td>1–2</td><td>3.754</td><td>1,262°</td><td>1,122°</td><td>0,853°</td><td>2,235°</td><td>3,435°</td><td>22,224 ms</td></tr>
+<tr><td>2–3</td><td>4.652</td><td>0,789°</td><td>0,789°</td><td>0,530°</td><td>1,427°</td><td>2,345°</td><td>1.675,785 ms</td></tr>
+<tr><td>3–4</td><td>4.525</td><td>0,853°</td><td>0,853°</td><td>0,452°</td><td>1,412°</td><td>8,139°</td><td>1.778,964 ms</td></tr>
+</tbody></table></div>
+<p><b>Replay quaternion là tính lại scalar pitch ZYX của phép thử cũ.</b> Nó chưa kiểm chứng hệ tọa độ giải phẫu, phép đo đủ 3D hoặc pipeline đồng bộ mới.</p>
+<img src="encoder/encoder-validation.png" alt="Góc và sai số gốc của ba cặp IMU so với encoder">
+<ul>
+<li>Cặp 1–2 có 287 mẫu pitch bị ép về −90°. Quaternion trong CSV tương ứng khoảng −88,416° đến −87,451°. Mã thu cũ dùng <code>abs(sinp) &gt;= 0.999</code>; việc ép bắt đầu ở khoảng 87,44°. Tính lại từ quaternion khôi phục thông tin mà không dùng encoder.</li>
+<li>Cặp 2–3 và 3–4 có reference cũ tới 1,676 và 1,779 giây nhưng vẫn đánh dấu hợp lệ. JSON báo riêng độ nhạy khi giới hạn tuổi reference 20 ms; kết quả này không thay thế điểm số toàn bộ.</li>
+<li>RMSE che được lỗi tức thời: cặp 3–4 có mẫu sai hơn 8°. Chưa xác định được nguồn lỗi chỉ từ file cũ.</li>
+<li>Script cũ <code>plot_imu_encoder_accuracy.py</code> mặc định cho phép dùng encoder để tái tạo đỉnh IMU rồi ghi RMSE đã sửa lên hình. Cần tắt chức năng này khi chứng minh độ chính xác. Hình mới giữ nguyên tín hiệu. Lệnh và cửa sổ dùng tạo SVG cũ chưa được xác nhận.</li>
+<li>Hai file pair gốc 2–3 và 3–4 chỉ có header; phân tích dùng file <code>_reconstructed</code>. JSON lưu SHA-256, nguồn và số mẫu.</li>
+</ul>
+<p><a href="encoder/encoder-report.json">Số liệu đầy đủ</a> · <a href="encoder/encoder-validation.svg">Biểu đồ SVG</a> · <a href="encoder/imu12-paired.csv">CSV 1–2</a> · <a href="encoder/imu23-paired.csv">CSV 2–3</a> · <a href="encoder/imu34-paired.csv">CSV 3–4</a></p>
+
+<h2>Test và build</h2>
+<p>Đã kiểm tra bộ test gốc trước khi sửa: 15 test ứng dụng, 74 test firmware. Bản hiện tại: <b>69 test ứng dụng và 77 test firmware đều qua, không skip</b>. Test bổ sung gồm ma trận độc lập, mount ngẫu nhiên, chuyển động toàn khối, trục nghiêng, quaternion đổi dấu, near-90°, clock drift/wrap, CRC, thiếu node, reboot, replay bốn node, hiệu chuẩn, phiên ghi, gait và báo cáo encoder.</p>
+<p>Qt/WebChannel smoke chạy thao tác hiệu chuẩn, đo và xuất dữ liệu. Môi trường headless không tạo được WebGL; nhánh báo lỗi 3D đã được kiểm tra. Render 3D trên GPU thực tế và truyền radio trên board chưa được kiểm chứng trong lần chạy này.</p>
+<p>Callback khoảng 0,05 ms/mẫu ở 100.000 dòng lịch sử. Đây là tốc độ xử lý phần mềm, không phải sai số vật lý.</p>
+<p><a href="verification.json">Log kiểm chứng</a> · <a href="desktop-smoke.png">Ảnh smoke UI</a> · <a href="benchmark.json">Benchmark</a> · <a href="changes.json">Thay đổi và sao lưu</a> · <a href="packaged-smoke.json">EXE và checksum</a></p>
+
+<h2>Dùng bản mới</h2>
+<ol>
+<li>Cài <a href="../../dist-installer/IMUJointViewer-Setup.exe">IMUJointViewer-Setup.exe</a>, hoặc chạy <a href="../../dist/IMUJointViewer/IMUJointViewer.exe">EXE portable</a> cùng thư mục đi kèm.</li>
+<li>Nạp <a href="../../firmware/manifest.json">bộ UF2 cho hub và bốn node</a>, đúng ID 1–4. Đã build, chưa tự động nạp board. Pin/I2C dựa trên cấu hình phần cứng hiện có. Firmware cũ thiếu clock mapping chỉ được ghi raw, không tạo góc giả đồng bộ.</li>
+<li>Chọn binary, kết nối; giữ tư thế chuẩn tối thiểu hai giây rồi hiệu chuẩn chức năng từng khớp. Lưu profile và xuất CSV kèm session ZIP.</li>
+<li>Đo lại encoder: nhiều tốc độ, chuyển động cả cụm, các trục, tháo/lắp lại và thời gian dài. Dùng phép hiệu chuẩn riêng, giữ nguyên tham số cho tập đánh giá độc lập. Sau đó kiểm chứng cảm biến đeo với reference phù hợp.</li>
+</ol>
+<p><a href="../../README.md">Hướng dẫn và công thức</a></p>
+
+<h2>Giới hạn còn lại</h2>
+<p>Clock mapping quy đổi thời điểm đọc I2C, chưa đo được thời điểm fusion nội bộ BNO055. Nó không loại bỏ hoàn toàn latency/jitter bên trong cảm biến. Một encoder chỉ xác nhận một bậc tự do trong phép thử đó; độ chuẩn encoder, cơ cấu gá và độ không chắc chắn thời gian chưa được định lượng. Sai lệch trục giải phẫu, chuyển động mô mềm, trượt dây đeo và từ trường vẫn cần kiểm chứng trên hệ thật. Bản nâng cấp loại bỏ các lỗi phần mềm đã xác định; chưa đủ bằng chứng cam kết dưới 1° cho mọi góc khi đi bộ.</p>
+</main></html>

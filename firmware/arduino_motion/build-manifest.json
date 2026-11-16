@@ -1,0 +1,25 @@
+{
+  "core": "C:\\Users\\doman\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.8",
+  "compiler": "C:\\Users\\doman\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7\\bin",
+  "uploaded": false,
+  "boards": [
+    {
+      "board": "AVR_MEGA2560",
+      "source": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.ino",
+      "hex": "D:\\imu-web-min-main\\firmware\\arduino_motion\\mega_dual_encoder\\mega_dual_encoder.hex",
+      "flash_bytes": 6342,
+      "ram_bytes": 268,
+      "source_sha256": "1881a22b4b592246bcdbc7624187f149854d25b7e248a67aab3fcd93665274ef",
+      "hex_sha256": "20f952d353fb4cec639ba34e0fbf117c8cda83afc4f525832e2452091e6aefd7"
+    },
+    {
+      "board": "AVR_UNO",
+      "source": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.ino",
+      "hex": "D:\\imu-web-min-main\\firmware\\arduino_motion\\uno_dual_tb6600\\uno_dual_tb6600.hex",
+      "flash_bytes": 12728,
+      "ram_bytes": 484,
+      "source_sha256": "9cb5fb7b8cebfdf82ef0ac63be80e93f39a03453e73b9a21c5db1c1d7e1138e0",
+      "hex_sha256": "b316eecbb55ccde83c8eb95b2aa5ce9a9017e2b6d41033bb62cea16a43809002"
+    }
+  ]
+}

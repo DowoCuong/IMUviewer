@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "gait",
+    "exit_code": 0,
+    "state": {
+      "title": "Đo góc IMU",
+      "cards": 0,
+      "errors": [],
+      "passed": true
+    }
+  },
+  {
+    "mode": "bench",
+    "exit_code": 0,
+    "state": {
+      "title": "Kiểm tra IMU với encoder",
+      "cards": 0,
+      "errors": [],
+      "passed": true
+    }
+  },
+  {
+    "mode": "motion",
+    "exit_code": 0,
+    "state": {
+      "title": "Đo chi trên và chi dưới",
+      "cards": 7,
+      "errors": [],
+      "passed": true
+    }
+  }
+]

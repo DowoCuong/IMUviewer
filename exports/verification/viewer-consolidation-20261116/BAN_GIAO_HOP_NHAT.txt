@@ -1,0 +1,45 @@
+HỢP NHẤT IMU VIEWER — 16/11/2026
+
+Bản hiện hành duy nhất: D:/imu-web-min-main/dist/IMUJointViewer/IMUJointViewer.exe
+Mở nhanh: D:/imu-web-min-main/RUN_IMU.cmd
+Phiên bản: 2.4.0, hiển thị trên thanh tiêu đề mọi màn hình.
+
+Giữ đủ gait, chi trên/chi dưới, encoder bench và radio-only bốn node; giữ CSV,
+session/replay, profile, giao thức QUALITY và chế độ legacy bật rõ bằng cờ.
+Cả ba màn hình có liên kết trực tiếp tới nhau trong cùng một cửa sổ/bridge.
+Chặn chuyển màn hình khi đang kết nối. Không đổi engine góc hoặc firmware.
+
+Trước sửa đã đọc BAN_GIAO.md và toàn bộ MANIFEST.json trong bộ bàn giao31/10.
+Đối chiếu cả UI và mã đóng gói PyInstaller của sáu portable: nguồn hiện tại trùng
+toàn bộ mã/UI của dist-performance-20261031; đây là nền hợp nhất, không chép mã
+cũ đè lên nâng cấp chi trên. Nguồn gốc và khác biệt ghi trong inventory.json.
+
+Nguồn trước sửa:
+D:/imu-web-min-main/backups/viewer-consolidation-20261116/source/
+Các bản cũ, gồm bộ cài, đã CHUYỂN NGUYÊN vào:
+D:/imu-web-min-main/backups/viewer-consolidation-20261116/previous-builds/
+Hash EXE trước/sau chuyển đều khớp; xem archive-transfers.json.
+Đặc biệt dist-performance-20261031 giữ nguyên để mở quay lui khi cần.
+CURRENT.json ghi đúng đường dẫn bản hiện hành và các đường dẫn quay lui.
+
+Thống nhất số phiên bản:
+- Một giá trị nguồn imu_desktop/__init__.py; pyproject lấy động từ đây.
+- Bộ cài tùy chọn nhận version từ cùng manifest, không giữ số riêng2.1.0.
+- Build mặc định chỉ tạo portable. Staging trước, giữ dist cũ trong backups
+  trước khi xuất bản. Từ nay không cần tạo thêm dist-<tính năng> ở thư mục chính.
+- Portable kèm README, thông báo thư viện và release-manifest.json chứa SHA256.
+
+Kiểm chứng:
+- 160 test đạt, bao gồm điều hướng và metadata package/version.
+- Các test replay cũ dùng type9 dưới chế độ STRICT đã được chuyển fixture sang
+  QUALITY type11; không hạ quality gate của sản phẩm để làm test đạt.
+- Qt/WebChannel: sáu hướng chuyển qua lại giữa ba trang, cùng window/bridge,
+  chặn mọi lời gọi serial.Serial trong phép kiểm tra nguồn.
+- EXE portable thực chạy cả ba chế độ từ thư mục làm việc khác: đều đạt;
+  chi trên tạo đủ7 ô góc, không lỗi khởi động.
+- Đối chiếu bytecode EXE mới với mã nguồn hiện tại, không có khác biệt.
+- Hash toàn bộ file portable và nguồn engine kiểm tra trong consolidation.json.
+
+Giới hạn: kiểm tra phần mềm/offscreen. WebGL3D có thể dùng fallback ở môi trường
+offscreen không có GPU. Chưa mở COM thật, flash, chạy motor hoặc đo độ chính xác
+phần cứng; không suy ra RMSE<1° từ các kiểm tra này.

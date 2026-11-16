@@ -1,0 +1,9 @@
+{
+  "errors": [],
+  "count": "101",
+  "knee": "30.00",
+  "calibration": "\u0110ang \u0111o \u00b7 sai l\u1ec7ch gi\u1edd \u01b0\u1edbc t\u00ednh \u00b130 \u00b5s \u00b7 ch\u01b0a x\u00e1c nh\u1eadn tr\u1ec5 b\u00ean trong BNO055",
+  "sceneError": "Error: Error creating WebGL context.\n    at new WebGLRenderer (file:///D:/imu-web-min-main/imu_desktop/ui/vendor/three.module.js:28143:13)\n    at initializeScene (file:///D:/imu-web-min-main/imu_desktop/ui/app.js:535:14)\n    at file:///D:/imu-web-min-main/imu_desktop/ui/app.js:831:3",
+  "overflow": false,
+  "measured_samples": 101
+}

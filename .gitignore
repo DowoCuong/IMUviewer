@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+.venv*/
+build/
+dist/
+dist-installer/
+# Local rollback copies and alternate portable builds contain bundled Qt binaries.
+/backups/
+/dist-*/
+*.spec.bak
+desktop-smoke.png
+*.log

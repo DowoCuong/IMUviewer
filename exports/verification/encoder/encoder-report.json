@@ -1,0 +1,295 @@
+{
+  "archive": "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc",
+  "trials": [
+    {
+      "source": "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc\\imu12\\imu_pair_relative_20260528_161024.csv",
+      "sha256": "99d4333fa89573915505e7ded2f964521951e8905a3e4cb6f06ca5502b87c622",
+      "source_rows": 3833,
+      "paired_rows": 3754,
+      "rejected": {
+        "encoder_invalid": 79
+      },
+      "parent_child": [
+        [
+          "1",
+          "2"
+        ]
+      ],
+      "declared_direction_sign": -1,
+      "duration_s": 75.538,
+      "timestamp_basis": "Legacy host wall time; no synchronized IMU acquisition epochs available",
+      "non_increasing_host_timestamps": 0,
+      "primary_stored_zeroed": {
+        "count": 3754,
+        "rmse_deg": 1.262044449848622,
+        "bias_deg": 0.8532535961640911,
+        "error_sd_deg": 0.9299002602573876,
+        "mae_deg": 1.018082045817794,
+        "p95_abs_deg": 2.2349999999999994,
+        "max_abs_deg": 3.434999999999988
+      },
+      "literal_stored_without_direction_mapping": {
+        "count": 3754,
+        "rmse_deg": 108.60703199769047,
+        "bias_deg": -87.23399413958444,
+        "error_sd_deg": 64.69712254654229,
+        "mae_deg": 87.23399413958444,
+        "p95_abs_deg": 180.58499999999998,
+        "max_abs_deg": 181.035
+      },
+      "reference_age_ms": {
+        "median": 1.7005,
+        "max": 22.224,
+        "over_30ms": 0
+      },
+      "age_sensitivity": {
+        "max_age_ms": 20,
+        "excluded_count": 7,
+        "metrics": {
+          "count": 3747,
+          "rmse_deg": 1.2626021227460988,
+          "bias_deg": 0.8532610088070451,
+          "error_sd_deg": 0.9306501873488978,
+          "mae_deg": 1.0183973845743257,
+          "p95_abs_deg": 2.2349999999999994,
+          "max_abs_deg": 3.434999999999988
+        }
+      },
+      "quaternion_replay": {
+        "method": "normalize both quaternions; inv(parent)*child; unclipped ZYX pitch; first paired IMU pose zero",
+        "scope": "Retrospective legacy scalar pitch; does not validate the new anatomical/clock pipeline",
+        "metrics": {
+          "count": 3754,
+          "rmse_deg": 1.1221823253552956,
+          "bias_deg": 0.7009363899630685,
+          "error_sd_deg": 0.876345450473362,
+          "mae_deg": 0.8736211955422913,
+          "p95_abs_deg": 2.133781650518884,
+          "max_abs_deg": 3.158142604875761
+        },
+        "age_limited_metrics": {
+          "count": 3747,
+          "rmse_deg": 1.1225321706170717,
+          "bias_deg": 0.700659312345353,
+          "error_sd_deg": 0.8770148243296756,
+          "mae_deg": 0.8736667209774327,
+          "p95_abs_deg": 2.133781650518884,
+          "max_abs_deg": 3.158142604875761
+        },
+        "stored_pitch_difference": {
+          "count": 3754,
+          "rmse_deg": 0.5567529551061967,
+          "bias_deg": 0.15236751868047063,
+          "error_sd_deg": 0.5354978919385577,
+          "mae_deg": 0.1525897274325362,
+          "p95_abs_deg": 1.805540275357302,
+          "max_abs_deg": 2.549224090679971
+        },
+        "premature_90_degree_samples": 287,
+        "actual_pitch_range_for_snapped_samples": [
+          -88.4158120571739,
+          -87.45077590932003
+        ]
+      },
+      "processing": "No smoothing, clipping, encoder-derived replacement, lag fit, fitted offset, or time warping",
+      "zeroing": "Primary retains the original first-pose zeroed columns; zeroing is already present in this archive",
+      "limits": "Encoder resolution/calibration, mechanical alignment and acquisition timing are unverified; single-axis bench data do not establish all-axis or worn-sensor accuracy",
+      "pair_folder": "imu12",
+      "header_only_files": [],
+      "paired_export": "D:\\imu-web-min-main\\exports\\verification\\encoder\\imu12-paired.csv"
+    },
+    {
+      "source": "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc\\imu23\\imu_pair_relative_20260528_170315_reconstructed.csv",
+      "sha256": "ef2bea2f82dda2cf8c4fd77932136c0f723e03f6d8bb340c129353bf1fbfe63c",
+      "source_rows": 4732,
+      "paired_rows": 4652,
+      "rejected": {
+        "encoder_invalid": 80
+      },
+      "parent_child": [
+        [
+          "3",
+          "2"
+        ]
+      ],
+      "declared_direction_sign": -1,
+      "duration_s": 93.387,
+      "timestamp_basis": "Legacy host wall time; no synchronized IMU acquisition epochs available",
+      "non_increasing_host_timestamps": 0,
+      "primary_stored_zeroed": {
+        "count": 4652,
+        "rmse_deg": 0.7885770487548265,
+        "bias_deg": 0.5303770421324163,
+        "error_sd_deg": 0.5835700086551237,
+        "mae_deg": 0.654689595872743,
+        "p95_abs_deg": 1.427,
+        "max_abs_deg": 2.3450000000000024
+      },
+      "literal_stored_without_direction_mapping": {
+        "count": 4652,
+        "rmse_deg": 102.18262153279639,
+        "bias_deg": -78.38450429922614,
+        "error_sd_deg": 65.55270878521574,
+        "mae_deg": 78.58001891659501,
+        "p95_abs_deg": 174.697,
+        "max_abs_deg": 176.281
+      },
+      "reference_age_ms": {
+        "median": 17.6175,
+        "max": 1675.785,
+        "over_30ms": 82
+      },
+      "age_sensitivity": {
+        "max_age_ms": 20,
+        "excluded_count": 261,
+        "metrics": {
+          "count": 4391,
+          "rmse_deg": 0.7882719208945485,
+          "bias_deg": 0.5236811660214076,
+          "error_sd_deg": 0.5891779507290138,
+          "mae_deg": 0.651875654748349,
+          "p95_abs_deg": 1.4399999999999977,
+          "max_abs_deg": 2.3450000000000024
+        }
+      },
+      "quaternion_replay": {
+        "method": "normalize both quaternions; inv(parent)*child; unclipped ZYX pitch; first paired IMU pose zero",
+        "scope": "Retrospective legacy scalar pitch; does not validate the new anatomical/clock pipeline",
+        "metrics": {
+          "count": 4652,
+          "rmse_deg": 0.7885759367674401,
+          "bias_deg": 0.5303817491194984,
+          "error_sd_deg": 0.5835642280414275,
+          "mae_deg": 0.6546895512950293,
+          "p95_abs_deg": 1.427489596013526,
+          "max_abs_deg": 2.3450327289690343
+        },
+        "age_limited_metrics": {
+          "count": 4391,
+          "rmse_deg": 0.7882674374882649,
+          "bias_deg": 0.5236832873649365,
+          "error_sd_deg": 0.5891700667370745,
+          "mae_deg": 0.6518728684123216,
+          "p95_abs_deg": 1.440493361256415,
+          "max_abs_deg": 2.3450327289690343
+        },
+        "stored_pitch_difference": {
+          "count": 4652,
+          "rmse_deg": 0.000285639172685786,
+          "bias_deg": -2.063637001755762e-05,
+          "error_sd_deg": 0.0002848927468454027,
+          "mae_deg": 0.0002490552042188016,
+          "p95_abs_deg": 0.00047506228160898445,
+          "max_abs_deg": 0.0004999621856427439
+        },
+        "premature_90_degree_samples": 0,
+        "actual_pitch_range_for_snapped_samples": null
+      },
+      "processing": "No smoothing, clipping, encoder-derived replacement, lag fit, fitted offset, or time warping",
+      "zeroing": "Primary retains the original first-pose zeroed columns; zeroing is already present in this archive",
+      "limits": "Encoder resolution/calibration, mechanical alignment and acquisition timing are unverified; single-axis bench data do not establish all-axis or worn-sensor accuracy",
+      "pair_folder": "imu23",
+      "header_only_files": [
+        "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc\\imu23\\imu_pair_relative_20260528_170315.csv"
+      ],
+      "paired_export": "D:\\imu-web-min-main\\exports\\verification\\encoder\\imu23-paired.csv"
+    },
+    {
+      "source": "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc\\imu34\\imu_pair_relative_20260528_192322_reconstructed.csv",
+      "sha256": "4c1c5240133d20d4c29c7d6a1d8e85d662592b2107305e18869f52e2d877cfcf",
+      "source_rows": 4605,
+      "paired_rows": 4525,
+      "rejected": {
+        "encoder_invalid": 80
+      },
+      "parent_child": [
+        [
+          "3",
+          "4"
+        ]
+      ],
+      "declared_direction_sign": 1,
+      "duration_s": 90.884,
+      "timestamp_basis": "Legacy host wall time; no synchronized IMU acquisition epochs available",
+      "non_increasing_host_timestamps": 0,
+      "primary_stored_zeroed": {
+        "count": 4525,
+        "rmse_deg": 0.8534961565711751,
+        "bias_deg": 0.45208883977900544,
+        "error_sd_deg": 0.7239277382646977,
+        "mae_deg": 0.6007266298342541,
+        "p95_abs_deg": 1.411999999999999,
+        "max_abs_deg": 8.139000000000001
+      },
+      "literal_stored_without_direction_mapping": {
+        "count": 4525,
+        "rmse_deg": 0.8534961565711751,
+        "bias_deg": 0.45208883977900544,
+        "error_sd_deg": 0.7239277382646977,
+        "mae_deg": 0.6007266298342541,
+        "p95_abs_deg": 1.411999999999999,
+        "max_abs_deg": 8.139000000000001
+      },
+      "reference_age_ms": {
+        "median": 13.859,
+        "max": 1778.964,
+        "over_30ms": 89
+      },
+      "age_sensitivity": {
+        "max_age_ms": 20,
+        "excluded_count": 135,
+        "metrics": {
+          "count": 4390,
+          "rmse_deg": 0.8654533448010556,
+          "bias_deg": 0.46422915717539853,
+          "error_sd_deg": 0.7304113783721842,
+          "mae_deg": 0.617079271070615,
+          "p95_abs_deg": 1.4150000000000063,
+          "max_abs_deg": 8.139000000000001
+        }
+      },
+      "quaternion_replay": {
+        "method": "normalize both quaternions; inv(parent)*child; unclipped ZYX pitch; first paired IMU pose zero",
+        "scope": "Retrospective legacy scalar pitch; does not validate the new anatomical/clock pipeline",
+        "metrics": {
+          "count": 4525,
+          "rmse_deg": 0.8534914868151218,
+          "bias_deg": 0.4520903723141705,
+          "error_sd_deg": 0.7239212756417109,
+          "mae_deg": 0.6007211999484658,
+          "p95_abs_deg": 1.4115556359143469,
+          "max_abs_deg": 8.139382171237804
+        },
+        "age_limited_metrics": {
+          "count": 4390,
+          "rmse_deg": 0.8654486615544704,
+          "bias_deg": 0.46423112245443027,
+          "error_sd_deg": 0.7304045801685008,
+          "mae_deg": 0.6170737304411986,
+          "p95_abs_deg": 1.415496371797424,
+          "max_abs_deg": 8.139382171237804
+        },
+        "stored_pitch_difference": {
+          "count": 4525,
+          "rmse_deg": 0.00031495207364991767,
+          "bias_deg": 4.0872499134972263e-05,
+          "error_sd_deg": 0.00031228872459767876,
+          "mae_deg": 0.0002747633312643072,
+          "p95_abs_deg": 0.00048619079269984766,
+          "max_abs_deg": 0.0004998824271353897
+        },
+        "premature_90_degree_samples": 0,
+        "actual_pitch_range_for_snapped_samples": null
+      },
+      "processing": "No smoothing, clipping, encoder-derived replacement, lag fit, fitted offset, or time warping",
+      "zeroing": "Primary retains the original first-pose zeroed columns; zeroing is already present in this archive",
+      "limits": "Encoder resolution/calibration, mechanical alignment and acquisition timing are unverified; single-axis bench data do not establish all-axis or worn-sensor accuracy",
+      "pair_folder": "imu34",
+      "header_only_files": [
+        "C:\\Users\\doman\\OneDrive\\Desktop\\import 2\\imu_enc\\imu34\\imu_pair_relative_20260528_192322.csv"
+      ],
+      "paired_export": "D:\\imu-web-min-main\\exports\\verification\\encoder\\imu34-paired.csv"
+    }
+  ],
+  "accuracy_claim": "Historical bench reanalysis only. New software/firmware physical accuracy requires a new independent measurement."
+}

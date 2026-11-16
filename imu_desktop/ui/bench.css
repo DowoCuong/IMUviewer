@@ -1,0 +1,11 @@
+.bench-workspace{display:grid;grid-template-columns:310px minmax(0,1fr);gap:14px;padding:14px;min-height:0}
+.bench-controls{overflow-y:auto;padding:18px}.bench-controls h2{font-size:14px;margin:0 0 10px}.bench-controls input{font:inherit}
+.bench-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.bench-fields label{font-size:11px;color:var(--muted);min-width:0}.bench-fields .field-control{margin-top:6px;width:100%;min-width:0}
+.bench-controls button{margin-top:10px}.bench-controls .button-row{gap:8px}.bench-controls .primary-button{margin-top:10px}
+.bench-results{overflow-y:auto;display:grid;grid-template-rows:auto auto minmax(150px,1fr) minmax(130px,.65fr) auto;gap:14px;min-height:0}
+.timing-banner{padding:12px 16px;border-color:#e9d3a5;background:#fffbef}.timing-banner strong{font-size:12px;color:#805e1d}.timing-banner p{margin:5px 0 0;font-size:11px;line-height:1.5;color:#746442}
+.bench-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.bench-stat{padding:16px;min-width:0}.bench-stat span,.bench-stat small{display:block;color:var(--muted);font-size:11px}.bench-stat strong{display:block;font-size:27px;font-weight:650;letter-spacing:-.03em;margin:8px 0;font-variant-numeric:tabular-nums}.bench-stat small{font-size:10px}
+.bench-chart-panel{display:grid;grid-template-rows:auto minmax(0,1fr);padding:14px 16px;min-height:0}.bench-chart-panel .panel-heading{margin-bottom:8px}.bench-chart-wrap{position:relative;min-height:0}.bench-chart-wrap canvas{width:100%;height:100%;display:block}
+.bench-status{padding:8px 16px;font-size:12px}.bench-status p{margin:5px 0}.motor-stop{border-color:#e4b8b8;color:#a13c3c;background:#fff7f7}
+@media(max-width:1180px){.bench-workspace{grid-template-columns:285px minmax(0,1fr);gap:10px;padding:10px}.bench-metrics{gap:8px}.bench-stat{padding:11px}.bench-stat strong{font-size:23px}}
+@media(max-height:760px){.bench-results{gap:9px;grid-template-rows:auto auto minmax(150px,1fr) minmax(130px,.65fr) auto}.bench-stat{padding:9px 12px}.bench-stat strong{font-size:23px;margin:4px 0}.timing-banner{padding:8px 12px}}
