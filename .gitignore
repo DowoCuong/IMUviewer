@@ -11,6 +11,8 @@ dist-installer/
 # Local rollback copies and alternate portable builds contain bundled Qt binaries.
 /backups/
 /dist-*/
+# Python, setup tool, environments and download cache created on first source run.
+/.runtime/
 *.spec.bak
 desktop-smoke.png
 *.log

@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-16",
+  "feature": "Automatic first-run setup for RUN_SOURCE.cmd",
+  "tests_passed": 168,
+  "existing_environment_reused": true,
+  "fresh_directory_setup_passed": true,
+  "cold_start_seconds": 35.7792434,
+  "managed_runtime": {
+    "python": "3.12.13",
+    "PySide6": "6.7.3",
+    "pyserial": "3.5"
+  },
+  "uv_version": "0.11.3",
+  "uv_archive_sha256": "ae681c0aaec7cc96af184648cb88d73f8393ed60fa5880abdd6bdb910f9b227c",
+  "cold_ui_mode": "gait",
+  "offline_ui_modes": [
+    "bench",
+    "motion"
+  ],
+  "corrupt_archive_rejected": true,
+  "requires_admin": false,
+  "system_python_changed": false,
+  "source_engine_unchanged": true,
+  "real_com_opened": false,
+  "motor_run": false,
+  "hardware_tested": false,
+  "limitation": "Fresh source folder on existing Windows x64 host; not a separate clean Windows VM",
+  "sources": [
+    {
+      "path": ".gitignore",
+      "sha256": "41b1138db9af3f9c3cc3a2f4ebf7640bdacaf881033ed4ff409ef9657a26d6ed"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ced8cf0d0aa2f78f79fa6f590f3f5caa3447085a6047d9409505e0cfa23c34f6"
+    },
+    {
+      "path": "RUN_SOURCE.cmd",
+      "sha256": "213c4dd9bc8bfb5bc0a3b9973ab963dc6d45762f72772decf749143f83f0aadd"
+    },
+    {
+      "path": "packaging/run_source.ps1",
+      "sha256": "4e7a03720e158e53fc6919b0763fd1d23e364393eb0e02e6b8f8d438dc1c8c04"
+    },
+    {
+      "path": "packaging/check_source_runtime.py",
+      "sha256": "87b0b4b9f057308fd9c383cd4181608129b69aa69cf0723d4dfdae927d899417"
+    },
+    {
+      "path": "tests/test_source_runtime.py",
+      "sha256": "4cea75d842898c0118758f3d96fdc7fce9d340f04261cb065b33a30b6bd827ca"
+    }
+  ]
+}

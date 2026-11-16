@@ -1,5 +1,14 @@
 # IMU Viewer — bản hợp nhất
 
+**Chạy trực tiếp mã nguồn:** tải ZIP từ GitHub, giải nén ra thư mục có quyền ghi
+và mở `RUN_SOURCE.cmd`. Lần đầu launcher tự tải Python và thư viện nếu máy chưa
+có môi trường phù hợp, sau đó mở app. Cần Internet cho lần thiết lập đầu.
+Launcher ưu tiên môi trường `.venv310/` hoặc `.venv/` có đúng thư viện; nếu chưa
+có, nó tạo môi trường riêng trong `.runtime/` và đọc `imu_desktop/` hiện tại.
+Sửa mã nguồn xong chỉ cần đóng/mở lại app, không build hoặc cài lại ứng dụng.
+Launcher tìm file theo vị trí của nó nên chạy được từ mọi thư mục và chuyển
+tiếp các tùy chọn `--bench`, `--motion`, `--legacy-quality` như bản EXE.
+
 Mở **`RUN_IMU.cmd`** trong thư mục này, hoặc chạy
 **`dist/IMUJointViewer/IMUJointViewer.exe`**. Đây là portable hiện hành duy nhất;
 giữ nguyên thư mục `_internal` cạnh EXE. Không cần cài lại ứng dụng.
@@ -55,6 +64,35 @@ Firmware/Arduino có README và manifest riêng trong `firmware/`; bộ nRF mớ
 ## Chạy từ nguồn và kiểm tra
 
 Môi trường có sẵn: `.venv310/Scripts/python.exe`, PySide6 và pyserial.
+
+Windows 10/11 x64: tải mã nguồn, **giải nén trước**, rồi mở `RUN_SOURCE.cmd`.
+Không cần cài Python thủ công hoặc quyền quản trị. Giữ cửa sổ thiết lập mở cho
+đến khi app xuất hiện. Launcher dùng công cụ `uv` bản 0.11.3, kiểm tra SHA256
+của file tải về, tải Python 3.12 do Astral phân phối và cài đúng các phiên bản
+trong `requirements-desktop.txt` từ PyPI. Nó không sửa PATH/Python hệ thống.
+
+Các lần sau chạy bằng môi trường đã có, không cần Internet nếu thư viện vẫn
+đúng. Khi requirements thay đổi hoặc thiết lập bị ngắt, mở lại launcher để
+kiểm tra/cài phần còn thiếu. Môi trường có sẵn được kiểm tra Python 3.10–3.12
+64-bit và khả năng nạp Qt. Môi trường do launcher tạo mà hỏng được giữ bản
+quay lui trước khi tạo lại; `.venv310/` và `.venv/` đang có không bị ghi đè.
+
+Nếu muốn tự chuẩn bị môi trường thay cho cơ chế tự động:
+
+```powershell
+py -3.10 -m venv .venv310
+.\.venv310\Scripts\python.exe -m pip install -r requirements-desktop.txt
+.\RUN_SOURCE.cmd
+```
+
+Mã app/giao diện khoảng 4,5 MB, nhưng máy vẫn tải và lưu các thư viện Qt.
+Không chép `.venv*` hoặc `.runtime/` giữa máy; để launcher thiết lập tại nơi đặt
+mã nguồn. Đưa mã nguồn, `RUN_SOURCE.cmd`, các tệp `packaging/` và requirements
+lên Git; `.runtime/`, `.venv*`, `dist`, bộ cài và backup được bỏ qua. Đây là
+bản chạy nguồn với thiết lập tự động, cần Internet lần đầu, không phải gói
+độc lập đã chứa sẵn Python/Qt để dùng ngoại tuyến trên máy mới.
+
+Lệnh chạy từng màn hình và kiểm tra:
 
 ```powershell
 .\.venv310\Scripts\python.exe run_desktop.py
